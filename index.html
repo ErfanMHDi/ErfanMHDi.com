@@ -1,0 +1,249 @@
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="robots" content="noindex, nofollow">
+        <title><?php echo esc_html(get_bloginfo('name')); ?> is Under Maintenance</title>
+        <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    </head>
+    <body>
+        <section class="coming-soon">
+            <div class="coming-soon-inner">
+                <h1 class="heading">E R F A N</h1>
+                <h2 class="small-heading">Web Developer & Graphic Designer</h2>
+                <p>ComingSoon</p>
+                <a href="https://wa.me/message/PLFIVBGPJM4AC1" title="Say Hi on WhatsApp!" class="cta">
+                    <span>👋 Say Hi on WhatsApp!</span>
+                </a>
+                <!-- <div class="counter-timer">
+                    <ul>
+                        <li><span id="days"></span>days</li>
+                        <li><span id="hours"></span>Hours</li>
+                        <li><span id="minutes"></span>Minutes</li>
+                        <li><span id="seconds"></span>Seconds</li>
+                    </ul>
+                </div> -->
+            </div>
+        </section>
+    </body>
+</html>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    }
+    body {
+        overflow: hidden;
+    }
+    .coming-soon {     
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #1c1c1e;
+    overflow: hidden;
+    }
+    .coming-soon-inner {
+    position: relative;
+    width: 100%;
+    max-width: 768px;
+    padding: 0 35px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    }
+    .coming-soon-inner:before {
+    content: "";
+    height: 2px;
+    width: 35%;
+    background: #000;
+    position: absolute;
+    top: -75px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    height: 5px;
+    border-radius: 140px;
+    background-size: 100% 100%;
+    background-position: 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px;
+    background-image: radial-gradient(49% 81% at 45% 47%, #FFE20345 0%, #073AFF00 100%), radial-gradient(113% 91% at 17% -2%, #FF000000 1%, #FF5A00FF 99%), radial-gradient(142% 91% at 83% 7%, #FFDB00FF 1%, #FF000000 99%), radial-gradient(142% 91% at -6% 74%, #FF0049FF 1%, #FF000000 99%), radial-gradient(142% 91% at 111% 84%, #FF7000FF 0%, #FF0000FF 100%);
+    }
+    .coming-soon-inner:after {
+    content: "";
+    height: 2px;
+    width: 50%;
+    background: #000;
+    position: absolute;
+    bottom: -50px;
+    right: 0;
+    left: 0;
+    margin: auto;
+    height: 5px;
+    border-radius: 140px;
+    background-size: 100% 100%;
+    background-position: 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px;
+    background-image: radial-gradient(49% 81% at 45% 47%, #FFE20345 0%, #073AFF00 100%), radial-gradient(113% 91% at 17% -2%, #FF000000 1%, #FF5A00FF 99%), radial-gradient(142% 91% at 83% 7%, #FFDB00FF 1%, #FF000000 99%), radial-gradient(142% 91% at -6% 74%, #FF0049FF 1%, #FF000000 99%), radial-gradient(142% 91% at 111% 84%, #FF7000FF 0%, #FF0000FF 100%);
+    }
+    p {    
+    color: white;
+    padding: 5px 15px;
+    border-radius: 30px;
+    font-size: 13px;
+    line-height: 13px;
+    position: absolute;
+    top: -10px;
+    right: 5px;
+    background-size: 100% 100%;
+    background-position: 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px;
+    background-image: radial-gradient(49% 81% at 45% 47%, #FFE20345 0%, #073AFF00 100%), radial-gradient(113% 91% at 17% -2%, #FF5A00FF 1%, #FF000000 99%), radial-gradient(142% 91% at 83% 7%, #d6b908 1%, #FF000000 99%), radial-gradient(142% 91% at -6% 74%, #FF0049FF 1%, #FF000000 99%), radial-gradient(142% 91% at 111% 84%, #FF7000FF 0%, #FF0000FF 100%);
+    }
+    .heading {
+    font-size: 120px;
+    text-transform: uppercase;
+    padding: 20px;
+    background: #000;
+    color: white;
+    /* transform: skewY(-10deg); */
+    font-weight: bolder;
+    line-height: 120px;
+    text-align: center;
+    width: 100%;
+    border-radius: 25px;
+		@media only screen and (max-width: 568px) {    
+            font-size: 65px;
+            line-height: 85px;
+		}
+    }
+    .heading:before {    
+    content: "";
+    height: 2px;
+    width: 50%;
+    background: #000;
+    position: absolute;
+    top: -50px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    height: 5px;
+    border-radius: 140px;
+    background-size: 100% 100%;
+    background-position: 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px;
+    background-image: radial-gradient(49% 81% at 45% 47%, #FFE20345 0%, #073AFF00 100%), radial-gradient(113% 91% at 17% -2%, #FF000000 1%, #FF5A00FF 99%), radial-gradient(142% 91% at 83% 7%, #FFDB00FF 1%, #FF000000 99%), radial-gradient(142% 91% at -6% 74%, #FF0049FF 1%, #FF000000 99%), radial-gradient(142% 91% at 111% 84%, #FF7000FF 0%, #FF0000FF 100%);
+    }
+    .heading:after {
+    content: "";
+    height: 2px;
+    width: 35%;
+    background: #000;
+    position: absolute;
+    bottom: -75px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    height: 5px;
+    border-radius: 140px;
+    background-size: 100% 100%;
+    background-position: 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px;
+    background-image: radial-gradient(49% 81% at 45% 47%, #FFE20345 0%, #073AFF00 100%), radial-gradient(113% 91% at 17% -2%, #FF000000 1%, #FF5A00FF 99%), radial-gradient(142% 91% at 83% 7%, #FFDB00FF 1%, #FF000000 99%), radial-gradient(142% 91% at -6% 74%, #FF0049FF 1%, #FF000000 99%), radial-gradient(142% 91% at 111% 84%, #FF7000FF 0%, #FF0000FF 100%);
+    }
+    .small-heading {
+    font-size: 24px;
+    display: inline-block;
+    padding: 20px 50px;
+    background: #fff;
+    color: #000;
+    /* transform: skewY(-10deg); */ 
+    font-weight: 800;
+    line-height: 30px;
+    box-shadow: 10px 10px 20px rgb(0 0 0 / .3);
+    z-index: 1;    
+    border-radius: 15px;
+    margin-top: -45px;
+		@media only screen and (max-width: 568px) {    
+            line-height: 15px;
+            font-size: 15px;
+            padding: 20px ; 
+            font-weight: 400;
+		}
+    }
+    .cta {
+    font-size: 20px;
+    display: inline-block;
+    padding: 10px 25px;
+    color: white;
+    line-height: 30px;
+    font-weight: 100;
+    border-radius: 30px;
+    text-decoration: none;
+    transition: all 0.5s ease;
+    background: #128c7e;
+		@media only screen and (max-width: 568px) {    
+            font-size: 15px;
+        }
+    }
+    .cta:hover {
+    background: #1fc35c;
+    box-shadow: 0 0 0 4px rgb(31 195 92 / 50%);
+    }
+    .cta:focus {
+    box-shadow: 0 0 0 4px rgb(31 195 92 / 50%);
+    outline: none;
+    }
+    .cta:active {
+    background: #032c12;
+    }
+    ul {
+        list-style: none;
+        display: flex;
+        column-gap: 10px;
+    color: white;
+    }
+    .counter-timer {
+        transform: skewY(-10deg);
+        position: absolute;
+        left: 0;
+        bottom: -75px;
+    }
+    .counter-timer > ul > li > span {
+        padding-right: 5px;
+    }
+</style>
+<script>
+    const second = 1000,
+    minute = second * 60,
+    hour = minute * 60,
+    day = hour * 24;
+    let countDown = new Date('May 25, 2023 00:00:00').getTime(),
+    x = setInterval(function() {    
+        let now = new Date().getTime(),
+        distance = countDown - now;
+        document.getElementById('days').innerText = Math.floor(distance / (day)),
+        document.getElementById('hours').innerText = Math.floor((distance % (day)) / (hour)),
+        document.getElementById('minutes').innerText = Math.floor((distance % (hour)) / (minute)),
+        document.getElementById('seconds').innerText = Math.floor((distance % (minute)) / second);
+    }, second)
+    $(document).ready(function(){
+        jQuery(".bar").click(function(){
+            jQuery(".toggle-nav").toggleClass("active");
+            jQuery(this).toggleClass("active-toggle");
+            var activetoggle = jQuery(".bar").hasClass("active-toggle");
+            if(activetoggle === true) {
+                jQuery(".bar i").removeClass("fa-bars");
+                jQuery(".bar i").addClass("fa-close");
+            } else {
+                jQuery(".bar i").removeClass("fa-close");
+                jQuery(".bar i").addClass("fa-bars");
+            } 
+        }); 
+    }); 
+</script>
