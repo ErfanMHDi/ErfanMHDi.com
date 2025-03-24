@@ -338,9 +338,13 @@ a {
 /* Main Content Structure ---------------------------------------------------------*/
 /*---------------------------------------------------------------------------------*/
 .Background {
-	position: fixed;
-	width: 100vw;
-	height: 100vh;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: var(--System-ColorBG);
+    inset: 0;
+    max-width: unset;
+    margin: 0 auto;
 	.Wrapper {
 		position: fixed;
 		width: 100vw;
@@ -474,12 +478,73 @@ a {
 		left: calc(50.0% - 100% / 2);
 
 	}
+	.Loader {
+		position: fixed;
+		width: 100vw;
+		height: 100vh;
+		inset: 0;
+		max-width: unset;
+		margin: 0 auto;
+		transition: opacity .5s ease, visibility .5s ease;
+		figure {
+			width: 75px;
+			aspect-ratio: 1;
+			display: grid;
+			margin: auto;
+			inset: 0;
+			position: fixed;
+			z-index: 9;
+			&:before,
+			&:after {
+				content: "";
+				grid-area: 1/1;
+				width: 35px;
+				aspect-ratio: 1;
+				box-shadow: 0 0 0 8px var(--System-ColorText) inset;
+				filter: drop-shadow(40px 40px 0 var(--System-ColorText));
+				animation: Loader 2s infinite alternate;
+			}
+			&:after {
+				margin: 0 0 0 auto;
+				filter: drop-shadow(-40px 40px 0 var(--System-ColorText));
+				animation-delay: -1s;
+			}
+		}
+	}
 }
+body.Loaded {
+	.Background .Loader {
+		opacity: 0;
+		visibility: hidden;
+	}
+	section > * {
+		opacity: 1;
+		visibility: visible;
+	}
+}
+section:not(.Background) > * {
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 2.5s ease, visibility 2.5s ease;
+}
+
 @keyframes MainBG {
 	100% {
 		transform: translate3d(0, 0, 1px) rotate(360deg);
 	}
 }
+@keyframes Loader {
+	0%,10%   {border-radius:0}
+	30%,40%  {border-radius:50% 0}
+	60%,70%  {border-radius:50%}
+	90%,100% {border-radius:0 50%}
+}
+
+
+/*---------------------------------------------------------------------------------*/
+/* PreLoader ----------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------*/
+
 section {    
 	position: relative;
     z-index: 1;
@@ -609,7 +674,7 @@ section {
     transition: opacity 0.3s ease-out, filter 0.3s ease-out, transform 0.5s ease-out;
     transform-origin: center top;
     will-change: transform, opacity, filter;
-    height: 90vh;
+    height: 85vh;
 	.Wrapper {
 		position: relative;
 		z-index: 1;
@@ -1617,7 +1682,7 @@ section {
                             background-repeat: repeat;
                             background-position: center;
                             background-size: 32px;
-                            background-image: url(../img/works/pattern.png);
+                            background-image: url(../img/works/Pattern.png);
 							-webkit-filter: grayscale(1) invert(1);
 							filter: grayscale(1) invert(1);
                             border: 0px;
@@ -2716,8 +2781,16 @@ left: 2rem;
                 font-size: 1rem;
                 line-height: 1rem;
                 font-variation-settings: "wght" 200, "dots" 4;
-				strong {
-
+				a {
+					color: var(--System-ColorText2);
+					font-size: 1rem;
+					strong {
+						font-variation-settings: "wght" 900, "dots" 4;
+					}
+					&:hover,
+					&:focus {
+						color: var(--System-ColorText);
+					}
 				}
 			}
 		}
