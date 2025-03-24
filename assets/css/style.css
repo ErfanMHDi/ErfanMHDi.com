@@ -361,8 +361,6 @@ a {
 			animation-timing-function: linear;
 			animation-iteration-count: infinite;
 			opacity: 0.64;
-			-webkit-backdrop-filter: saturate(200%) blur(0);
-			backdrop-filter: saturate(200%) blur(0);
 			&:nth-child(0) {
 				background-color: var(--System-ColorRed);
 				top: 75%;
