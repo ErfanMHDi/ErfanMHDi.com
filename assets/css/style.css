@@ -2453,7 +2453,8 @@ html[lights=off] #Works .Wrapper .Bento .Benex:not(:first-child) .Wrapper:after 
 		grid-template-columns: repeat(2, 1fr);
 		grid-template-areas: 
 		"a a" 
-		"b c" 
+		"b b" 
+		"c c" 
 		"d d" 
 		"e e" 
 		"f g"
@@ -2749,6 +2750,8 @@ html[lights=off] #Works .Wrapper .Bento .Benex:not(:first-child) .Wrapper:after 
 	gap: 16px;
 	width: 100%;
 	position: relative;
+    margin-top: -8px;
+    margin-bottom: 24px;
 }
 
 #Me .Wrapper .Bento .Benex.Music .Wrapper .Controls button {
@@ -2781,6 +2784,7 @@ html[lights=off] #Works .Wrapper .Bento .Benex:not(:first-child) .Wrapper:after 
 
 #Me .Wrapper .Bento .Benex.Photos .Wrapper {
 	position: relative;
+    min-height: 512px;
 }
 
 #Me .Wrapper .Bento .Benex.Photos .Wrapper .Icon {
