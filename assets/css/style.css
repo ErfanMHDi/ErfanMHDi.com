@@ -361,7 +361,7 @@ a {
 			backface-visibility: hidden;
 			position: absolute;
 			animation: MainBG;
-			animation-duration: 32s;
+			animation-duration: 64s;
 			animation-timing-function: linear;
 			animation-iteration-count: infinite;
 			opacity: 0.16;
@@ -485,6 +485,7 @@ a {
 		max-width: unset;
 		margin: 0 auto;
 		transition: opacity .5s ease, visibility .5s ease;
+		z-index: 999;
 		figure {
 			width: 75px;
 			aspect-ratio: 1;
@@ -492,7 +493,6 @@ a {
 			margin: auto;
 			inset: 0;
 			position: fixed;
-			z-index: 9;
 			&:before,
 			&:after {
 				content: "";
@@ -526,7 +526,6 @@ section:not(.Background) > * {
 	visibility: hidden;
 	transition: opacity 2.5s ease, visibility 2.5s ease;
 }
-
 @keyframes MainBG {
 	100% {
 		transform: translate3d(0, 0, 1px) rotate(360deg);
