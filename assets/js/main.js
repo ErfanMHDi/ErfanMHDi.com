@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 	/*-----------------------------------------------------------------------------*/
 	setTimeout(function () {
 		document.body.classList.add("Loaded");
-	}, 2500);
+	}, 1500);
 
 
 	/*-----------------------------------------------------------------------------*/
@@ -351,6 +351,8 @@ document.addEventListener("DOMContentLoaded", async function () {
 			requestAnimationFrame(updateSpans);
 		}
 		updateSpans();
+		mouse.element.removeEventListener('wheel', mouse.mousewheel)
+
 	}
 	initGravity();
 
