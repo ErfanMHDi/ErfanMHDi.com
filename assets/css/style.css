@@ -461,7 +461,9 @@ a {
 		overflow: hidden;
 		background: var(--System-ColorBG);
 		z-index: 1;
-		opacity: 0.5;
+		opacity: 0.64;
+        -webkit-backdrop-filter: saturate(185%) blur(185px);
+        backdrop-filter: saturate(185%) blur(185px);
 	}
 	&:after { 
 		position: fixed;
@@ -674,12 +676,15 @@ section {
     transition: opacity 0.3s ease-out, filter 0.3s ease-out, transform 0.5s ease-out;
     transform-origin: center top;
     will-change: transform, opacity, filter;
-    height: 85vh;
+    min-height: 85vh;
 	.Wrapper {
 		position: relative;
 		z-index: 1;
 		gap: 16px;
 		align-items: center;
+		@media only screen and (max-width: 768px) {
+			align-items: flex-start;
+		}
 		.Status {
 			display:inline-flex;
 			flex-direction: row;
@@ -734,21 +739,14 @@ section {
 				}
 			}
 		}
-		.Title {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            align-content: center;
-            justify-content: flex-start;
-            align-items: center;
-            gap: 16px;
-			/* white-space: nowrap; */
-			@media only screen and (max-width: 768px) {
-				flex-direction: column;
-				align-items: flex-start;
-				align-content: flex-start;
-				justify-content: center;
-			}
+		.Title {            
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			align-content: center;
+			justify-content: center;
+			align-items: center;
+			gap: 16px;
 			.Text {
                 display: inline;
 				.DualTone {
@@ -763,20 +761,25 @@ section {
                     display: inline;
 					@media only screen and (max-width: 768px) {
 						font-size: 2.25rem;
+						line-height: 2.25rem;
 					}
 					@media only screen and (max-width: 568px) {
-						font-size: 1.75rem;
+						font-size: 1.5rem;
+						line-height: 1.5rem;
 					}
 				}
 				h1, h2 {
-                    font-size: 3.5rem;
+                    font-size: 3.25rem;
+                    line-height: 3.25rem;
                     font-variation-settings: "wght" 950, "dots" 4;
                     display: inline;
 					@media only screen and (max-width: 768px) {
 						font-size: 3rem;
+						line-height: 3rem;
 					}
 					@media only screen and (max-width: 568px) {
-						font-size: 2.5rem;
+						font-size: 2.25rem;
+						line-height: 2.25rem;
 					}
 				}
 			}
@@ -815,6 +818,9 @@ section {
                             border-color: var(--System-ColorBG);
 						}
 					}
+				}
+				@media only screen and (max-width: 768px) {
+					display: none;
 				}
 			}
 			&.Developer {
@@ -945,7 +951,7 @@ section {
 					}
 				}
 				.Objects {
-					width: 64px;
+                    width: 128px;
 					height: 64px;
 					.ColorSets {                        
 						position: relative;
@@ -1393,7 +1399,7 @@ section {
 			grid-template-columns: repeat(6, 1fr);
 			grid-template-areas: 
 				"a a a a b b"
-				"c c c c b b"
+				"c c c c c c"
 				"d d e e e e"
 				"d d f f f f"
 				"g g g g g g";
@@ -1453,7 +1459,7 @@ section {
                         justify-content: flex-start;
                         align-items: flex-start;
                         margin-top: auto;
-                        min-height: 384px;
+                        min-height: 512px;
                         position: relative;
                         overflow: hidden;
 						.Pill {
