@@ -1815,6 +1815,12 @@ section .Wrapper .Bento .Benex.Transparent .Wrapper .Header .Text .Title {
 	min-height: 512px;
 	position: relative;
 	overflow: hidden;
+    filter: saturate(185%);
+    background-image: radial-gradient(30deg, #446ec34d 10%, #989da84f 70%);
+    background: radial-gradient(#446ec3bf 0%, var(--System-ColorBG2) 65%);
+    background-position: -16px -188px;
+    background-repeat: repeat;
+    background-size: 200%;
 }
 @media only screen and (max-width: 568px) {
 	#Services .Wrapper .Bento .Benex.DEV .Wrapper {
