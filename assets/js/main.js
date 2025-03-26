@@ -251,16 +251,18 @@ document.addEventListener("DOMContentLoaded", async function () {
 				height: container.clientHeight,
 				wireframes: false,
 				background: "transparent",
-				pixelRatio: window.devicePixelRatio, // Handle high DPI screens
+				pixelRatio: window.devicePixelRatio,
+				enabled: false // Disable Matter.js rendering canvas visuals but keep it for mouse interaction
 			},
 		});
-
+	
 		Render.run(render);
 		const runner = Runner.create();
 		Runner.run(runner, engine);
 		render.canvas.addEventListener("wheel", (event) => {
 			event.stopPropagation();
 		}, { passive: true });
+	
 		let ground, leftWall, rightWall, topWall;
 		function createBoundaries() {
 			const width = container.clientWidth;
@@ -272,7 +274,8 @@ document.addEventListener("DOMContentLoaded", async function () {
 			topWall = Bodies.rectangle(width / 2, 5, width, 10, { isStatic: true, render: { visible: false } });
 			World.add(world, [ground, leftWall, rightWall, topWall]);
 		}
-		setTimeout(createBoundaries, 50); 
+		setTimeout(createBoundaries, 50);
+	
 		const spans = container.querySelectorAll(".Pill");
 		const spanBodies = [];
 		spans.forEach((span) => {
@@ -286,9 +289,10 @@ document.addEventListener("DOMContentLoaded", async function () {
 				rect.width,
 				rect.height,
 				{
-					restitution: 0.6,
+					restitution: 0.32,
 					friction: 0.1,
 					density: 0.02,
+					frictionAir: 0.02, // add gentle air friction
 					chamfer: { radius: Math.min(rect.width, rect.height) / 2 },
 					render: { visible: false },
 				}
@@ -296,16 +300,18 @@ document.addEventListener("DOMContentLoaded", async function () {
 			World.add(world, body);
 			spanBodies.push({ element: span, body, initialWidth, initialHeight });
 		});
+	
 		function repositionObjects() {
 			const width = container.clientWidth;
 			const height = container.clientHeight;
 			spanBodies.forEach(({ body }) => {
 				Matter.Body.setPosition(body, {
-					x: Math.min(Math.max(body.position.x, 20), width - 20), 
+					x: Math.min(Math.max(body.position.x, 20), width - 20),
 					y: Math.min(Math.max(body.position.y, 20), height - 20),
 				});
 			});
 		}
+	
 		function resizeRender() {
 			const width = container.clientWidth;
 			const height = container.clientHeight;
@@ -319,8 +325,14 @@ document.addEventListener("DOMContentLoaded", async function () {
 			createBoundaries();
 			repositionObjects();
 		}
-
-		window.addEventListener("resize", resizeRender);
+	
+		// Debounced resize
+		let resizeTimeout;
+		window.addEventListener("resize", () => {
+			clearTimeout(resizeTimeout);
+			resizeTimeout = setTimeout(resizeRender, 200);
+		});
+	
 		const mouse = Mouse.create(render.canvas);
 		const mouseConstraint = MouseConstraint.create(engine, {
 			mouse: mouse,
@@ -331,6 +343,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 		});
 		World.add(world, mouseConstraint);
 		render.mouse = mouse;
+	
 		container.addEventListener("mouseleave", () => {
 			if (mouseConstraint.body) {
 				mouseConstraint.body = null;
@@ -339,23 +352,26 @@ document.addEventListener("DOMContentLoaded", async function () {
 			mouseConstraint.constraint.bodyB = null;
 			mouseConstraint.constraint.pointB = null;
 		});
+	
+		// Throttled animation updates
+		let frameCount = 0;
 		function updateSpans() {
-			spanBodies.forEach(({ element, body, initialWidth, initialHeight }) => {
-				// element.style.width = `${initialWidth}px`;
-				// element.style.height = `${initialHeight}px`;
-				element.style.position = "absolute";
-				element.style.left = `${body.position.x - initialWidth / 2}px`;
-				element.style.top = `${body.position.y - initialHeight / 2}px`;
-				element.style.transform = `rotate(${body.angle}rad)`;
-			});
+			frameCount++;
+			if (frameCount % 2 === 0) { // update every other frame
+				spanBodies.forEach(({ element, body, initialWidth, initialHeight }) => {
+					element.style.position = "absolute";
+					element.style.left = `${body.position.x - initialWidth / 2}px`;
+					element.style.top = `${body.position.y - initialHeight / 2}px`;
+					element.style.transform = `rotate(${body.angle}rad)`;
+				});
+			}
 			requestAnimationFrame(updateSpans);
 		}
 		updateSpans();
-		mouse.element.removeEventListener('wheel', mouse.mousewheel)
-
+	
+		mouse.element.removeEventListener('wheel', mouse.mousewheel);
 	}
 	initGravity();
-
 
 
 	/*-----------------------------------------------------------------------------*/
