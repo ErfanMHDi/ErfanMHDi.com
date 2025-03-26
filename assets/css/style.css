@@ -2862,7 +2862,8 @@ html[lights=off] #Works .Wrapper .Bento .Benex:not(:first-child) .Wrapper:after 
 
 #Me .Wrapper .Bento .Benex.Photos .Wrapper .Nav .Indicator {
 	width: 56px;
-	height: 40px;
+	height: 44px;
+	min-height: 44px;
 	background: var(--System-ColorBG);
 	border-radius: 32px;
 	position: absolute;
