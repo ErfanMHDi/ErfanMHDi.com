@@ -519,7 +519,7 @@ a:focus {
 	height: 100vh;
 	background-size: 128px;
 	background-repeat: repeat;
-	background-image: url("../img/bg/Grains.png");
+	background-image: url("../img/bg/Grains.webp");
 	opacity: 0.05;
 	border-radius: 0;
 	content: "";
@@ -2094,7 +2094,7 @@ html[lights=off] #Works .Wrapper .Bento .Benex:not(:first-child) .Wrapper:before
 	background-repeat: repeat;
 	background-position: center;
 	background-size: 32px;
-	background-image: url(../img/works/Pattern.png);
+	background-image: url(../img/works/Pattern.webp);
 	-webkit-filter: grayscale(1) invert(1);
 	filter: grayscale(1) invert(1);
 	border: 0px;
