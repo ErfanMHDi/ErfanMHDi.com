@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 		document.body.classList.add("Loaded");
 	}, 1500);
 
+	
 
 	/*-----------------------------------------------------------------------------*/
 	/* MultiLanguage Engine -------------------------------------------------------*/
