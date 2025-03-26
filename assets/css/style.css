@@ -113,21 +113,21 @@ html {
 	scroll-behavior: smooth;
 	-ms-touch-action: manipulation;
 	touch-action: manipulation;
-	font-size: 16px;
-	line-height: 1.5;
-	font-variation-settings: "wght" 200, "dots" 4;
-	color: var(--System-ColorText);
-	background: var(--System-ColorBG2);
 	transition: color 0.5s ease, background 0.5s ease;
 	--System-Gap: 32px;
 }
 
-html body {
+body {
 	overflow: auto;
 	overflow-x: hidden;
 	margin: 0;
 	overscroll-behavior: none;
 	-webkit-tap-highlight-color: transparent;
+	font-size: 16px;
+	line-height: 1.5;
+	font-variation-settings: "wght" 200, "dots" 4;
+	color: var(--System-ColorText);
+	background-color: var(--System-ColorBG);
 }
 
 html[dir=rtl] .HideOnRTL {
@@ -3242,8 +3242,7 @@ html[lights=off] #Works .Wrapper .Bento .Benex:not(:first-child) .Wrapper:after 
 /* Footer Structure ---------------------------------------------------------------*/
 /*---------------------------------------------------------------------------------*/
 #Footer {
-	margin: 32px auto;
-    margin-bottom: max(32px, env(safe-area-inset-bottom));
+	margin: 32px auto 48px;
 }
 
 #Footer .Wrapper {
