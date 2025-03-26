@@ -626,7 +626,7 @@ section .Wrapper .Bento {
 }
 
 section .Wrapper .Bento .Benex {
-	border-radius: var(--System-Gap);
+	border-radius: 32px;
 	padding: 8px;
 	background: var(--System-ColorGlow);
 	border: 1px solid rgba(255, 255, 255, 0.08);
@@ -642,7 +642,7 @@ section .Wrapper .Bento .Benex .Wrapper {
 	background-image: linear-gradient(to top, var(--System-ColorBG), var(--System-ColorGray3));
 	background-image: var(--System-GradientBG);
 	padding: var(--System-Gap);
-	border-radius: calc(var(--System-Gap) - 8px);
+	border-radius: calc(32px - 8px);
 	height: 100%;
 	overflow: hidden;
 	border: 1px solid var(--System-ColorSep);
@@ -852,6 +852,58 @@ section .Wrapper .Bento .Benex.Transparent .Wrapper .Header .Text .Title {
     margin: 0 auto;
     text-align: center;
 
+}
+.CTA .GetInTouch {
+    background: var(--System-GradientBG);
+    border-radius: 100px;
+    border: 2px solid var(--System-ColorSep);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    gap: 2px;
+    border: 2px solid var(--System-ColorSep);
+    border-color: var(--System-ColorDark);
+    box-shadow: 0 0 0 4px rgb(0 0 0 / 32%);
+    transition: all 0.5s ease;
+}
+.CTA .GetInTouch span {
+    color: var(--System-ColorLight);
+}
+.CTA .GetInTouch {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    background: linear-gradient(to bottom, rgb(58 58 64) 50%, var(--System-ColorDark) 100%);
+}
+
+.CTA .GetInTouch::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: linear-gradient(to top, rgb(58 58 64) 50%, var(--System-ColorDark) 100%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: 0;
+}
+
+.CTA .GetInTouch:hover::before,
+.CTA .GetInTouch:focus::before {
+    opacity: 1;
+}
+
+.CTA .GetInTouch > * {
+    position: relative;
+    z-index: 1;
+}
+.CTA .GetInTouch img {
+	-webkit-filter: grayscale(1) invert(1);
+	filter: grayscale(1) invert(1);
+    padding: 4px;
 }
 .CTA .WhatsApp {
     background: var(--System-GradientBG);
@@ -1078,6 +1130,18 @@ section .Wrapper .Bento .Benex.Transparent .Wrapper .Header .Text .Title {
     margin: auto;
 	transition: transform 0.5s ease;
 }
+
+@media only screen and (max-width: 428px) {
+	#Hero .Wrapper .Title .Objects .Icons .Icon {
+		width: 64px;
+		height: 64px;
+	}
+	#Hero .Wrapper .Title .Objects .Icons .Icon img {
+		width: 48px;
+		height: 48px;
+	}
+}
+
 
 #Hero .Wrapper .Title .Objects .Icons .Icon:first-child {
 	transform: rotate(0deg) !important;
@@ -1997,6 +2061,7 @@ section .Wrapper .Bento .Benex.Transparent .Wrapper .Header .Text .Title {
 #Works .Wrapper .Bento .Benex:not(:first-child) .Wrapper {
 	box-shadow: inset -16px 16px 20px 0px var(--System-ColorShadow);
 	border: none;
+    background: var(--System-ColorDark);
 }
 
 #Works .Wrapper .Bento .Benex:not(:first-child) .Wrapper:before {
@@ -2180,6 +2245,10 @@ html[lights=off] #Works .Wrapper .Bento .Benex:not(:first-child) .Wrapper:after 
 	line-height: 2.75rem;
 	font-variation-settings: "wght" 950, "dots" 4;
 }
+#Works .Wrapper .Bento .Benex .Wrapper .Content .Wrp .Title span {
+    background: var(--System-GradientTextLightRev);
+    -webkit-background-clip: text;
+}
 
 #Works .Wrapper .Bento .Benex .Wrapper .Content .Wrp a {
 	display: inline-flex;
@@ -2231,7 +2300,7 @@ html[lights=off] #Works .Wrapper .Bento .Benex:not(:first-child) .Wrapper:after 
 	flex-wrap: wrap;
 	align-content: center;
 	align-items: center;
-	gap: 16px;
+    gap: 8px;
 }
 
 #Works .Wrapper .Bento .Benex .Wrapper .Content .Services .Service {
@@ -2248,6 +2317,7 @@ html[lights=off] #Works .Wrapper .Bento .Benex:not(:first-child) .Wrapper:after 
 	line-height: 1.75rem;
 	font-variation-settings: "wght" 200, "dots" 4;
 	text-align: justify;
+    color: var(--System-ColorLight);
 }
 
 #Works .Wrapper .Bento .Benex.More {
@@ -2297,17 +2367,23 @@ html[lights=off] #Works .Wrapper .Bento .Benex:not(:first-child) .Wrapper:after 
 #Stats .Bento {
 	grid-template-columns: repeat(4, 1fr);
 	grid-template-rows: repeat(2, 1fr);
-	grid-template-areas: "a b c d" "e e f f";
+	grid-template-areas: 
+	"a b c d" 
+	"e e f f";
 }
 
 @media only screen and (max-width: 768px) {
 	#Stats .Bento {
 		grid-template-columns: repeat(2, 1fr);
-		grid-template-areas: "a a" "b c" "d e" "f g" "h i" "j j";
+		grid-template-areas: 
+		"a b" 
+		"c d" 
+		"e e" 
+		"f f";
 	}
 }
 
-@media only screen and (max-width: 568px) {
+@media only screen and (max-width: 428px) {
 	#Stats .Bento {
 		grid-template-columns: 1fr;
 		grid-template-areas: "a a" "b b" "c c" "d d" "e e" "f f" "g g" "h h" "i i" "j j";
@@ -2784,7 +2860,7 @@ html[lights=off] #Works .Wrapper .Bento .Benex:not(:first-child) .Wrapper:after 
 
 #Me .Wrapper .Bento .Benex.Photos .Wrapper {
 	position: relative;
-    min-height: 512px;
+    min-height: 448px;
 }
 
 #Me .Wrapper .Bento .Benex.Photos .Wrapper .Icon {
@@ -3167,6 +3243,7 @@ html[lights=off] #Works .Wrapper .Bento .Benex:not(:first-child) .Wrapper:after 
 /*---------------------------------------------------------------------------------*/
 #Footer {
 	margin: 32px auto;
+    margin-bottom: max(32px, env(safe-area-inset-bottom));
 }
 
 #Footer .Wrapper {
