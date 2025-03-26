@@ -252,17 +252,15 @@ document.addEventListener("DOMContentLoaded", async function () {
 				wireframes: false,
 				background: "transparent",
 				pixelRatio: window.devicePixelRatio,
-				enabled: false // Disable Matter.js rendering canvas visuals but keep it for mouse interaction
+				enabled: false
 			},
 		});
-	
 		Render.run(render);
 		const runner = Runner.create();
 		Runner.run(runner, engine);
 		render.canvas.addEventListener("wheel", (event) => {
 			event.stopPropagation();
 		}, { passive: true });
-	
 		let ground, leftWall, rightWall, topWall;
 		function createBoundaries() {
 			const width = container.clientWidth;
@@ -275,7 +273,6 @@ document.addEventListener("DOMContentLoaded", async function () {
 			World.add(world, [ground, leftWall, rightWall, topWall]);
 		}
 		setTimeout(createBoundaries, 50);
-	
 		const spans = container.querySelectorAll(".Pill");
 		const spanBodies = [];
 		spans.forEach((span) => {
@@ -300,7 +297,6 @@ document.addEventListener("DOMContentLoaded", async function () {
 			World.add(world, body);
 			spanBodies.push({ element: span, body, initialWidth, initialHeight });
 		});
-	
 		function repositionObjects() {
 			const width = container.clientWidth;
 			const height = container.clientHeight;
@@ -311,7 +307,6 @@ document.addEventListener("DOMContentLoaded", async function () {
 				});
 			});
 		}
-	
 		function resizeRender() {
 			const width = container.clientWidth;
 			const height = container.clientHeight;
@@ -325,14 +320,11 @@ document.addEventListener("DOMContentLoaded", async function () {
 			createBoundaries();
 			repositionObjects();
 		}
-	
-		// Debounced resize
 		let resizeTimeout;
 		window.addEventListener("resize", () => {
 			clearTimeout(resizeTimeout);
 			resizeTimeout = setTimeout(resizeRender, 200);
 		});
-	
 		const mouse = Mouse.create(render.canvas);
 		const mouseConstraint = MouseConstraint.create(engine, {
 			mouse: mouse,
@@ -343,7 +335,6 @@ document.addEventListener("DOMContentLoaded", async function () {
 		});
 		World.add(world, mouseConstraint);
 		render.mouse = mouse;
-	
 		container.addEventListener("mouseleave", () => {
 			if (mouseConstraint.body) {
 				mouseConstraint.body = null;
@@ -352,8 +343,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 			mouseConstraint.constraint.bodyB = null;
 			mouseConstraint.constraint.pointB = null;
 		});
-	
-		// Throttled animation updates
+		engine.enableSleeping = true;
 		let frameCount = 0;
 		function updateSpans() {
 			frameCount++;
@@ -368,11 +358,36 @@ document.addEventListener("DOMContentLoaded", async function () {
 			requestAnimationFrame(updateSpans);
 		}
 		updateSpans();
-	
 		mouse.element.removeEventListener('wheel', mouse.mousewheel);
 	}
-	initGravity();
-
+	function runGravityWhenWrapperAtViewportCenter() {
+		const wrapper = document.querySelector("#Services .DEV .Wrapper");
+		if (!wrapper) return;
+		let gravityInitialized = false;
+		function checkWrapperCenter() {
+			if (gravityInitialized) return;
+			const rect = wrapper.getBoundingClientRect();
+			const wrapperCenterY = rect.top + rect.height / 2;
+			const viewportCenterY = window.innerHeight / 2;
+			const offset = Math.abs(wrapperCenterY - viewportCenterY);
+			const tolerance = window.innerHeight * 0.5;
+			if (offset < tolerance) {
+				initGravity();
+				gravityInitialized = true;
+				window.removeEventListener('scroll', checkWrapperCenter);
+			}
+		} 
+		const observer = new IntersectionObserver((entries) => {
+			entries.forEach(entry => {
+				if (entry.isIntersecting && !gravityInitialized) {
+					window.addEventListener('scroll', checkWrapperCenter);
+					checkWrapperCenter();
+				}
+			});
+		}, { threshold: 0.5 });
+		observer.observe(wrapper);
+	}
+	runGravityWhenWrapperAtViewportCenter();
 
 	/*-----------------------------------------------------------------------------*/
 	/* Music Benex ----------------------------------------------------------------*/
