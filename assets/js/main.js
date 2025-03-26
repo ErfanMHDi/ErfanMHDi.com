@@ -236,6 +236,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 	/*-----------------------------------------------------------------------------*/
 	function initGravity() {
 		const { Engine, Render, Runner, Bodies, World, Mouse, MouseConstraint, Composite } = Matter;
+		const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 		const container = document.querySelector("#Services .DEV .Wrapper");
 		if (!container) {
 			return;
@@ -295,7 +296,15 @@ document.addEventListener("DOMContentLoaded", async function () {
 				}
 			);
 			World.add(world, body);
-			spanBodies.push({ element: span, body, initialWidth, initialHeight });
+			spanBodies.push({ 
+				element: span, 
+				body, 
+				initialWidth, 
+				initialHeight,
+				lastX: body.position.x,
+				lastY: body.position.y,
+				lastAngle: body.angle
+			});
 		});
 		function repositionObjects() {
 			const width = container.clientWidth;
@@ -347,12 +356,23 @@ document.addEventListener("DOMContentLoaded", async function () {
 		let frameCount = 0;
 		function updateSpans() {
 			frameCount++;
-			if (frameCount % 2 === 0) { // update every other frame
-				spanBodies.forEach(({ element, body, initialWidth, initialHeight }) => {
-					element.style.position = "absolute";
-					element.style.left = `${body.position.x - initialWidth / 2}px`;
-					element.style.top = `${body.position.y - initialHeight / 2}px`;
-					element.style.transform = `rotate(${body.angle}rad)`;
+			const updateEvery = isMobile ? 4 : 2; // throttle more on mobile
+			if (frameCount % updateEvery === 0) {
+				spanBodies.forEach((item) => {
+					const { element, body, initialWidth, initialHeight } = item;
+					const dx = Math.abs(body.position.x - item.lastX);
+					const dy = Math.abs(body.position.y - item.lastY);
+					const dAngle = Math.abs(body.angle - item.lastAngle);
+
+					if (dx > 0.1 || dy > 0.1 || dAngle > 0.01) {
+						element.style.position = "absolute";
+						element.style.left = `${body.position.x - initialWidth / 2}px`;
+						element.style.top = `${body.position.y - initialHeight / 2}px`;
+						element.style.transform = `rotate(${body.angle}rad)`;
+						item.lastX = body.position.x;
+						item.lastY = body.position.y;
+						item.lastAngle = body.angle;
+					}
 				});
 			}
 			requestAnimationFrame(updateSpans);
