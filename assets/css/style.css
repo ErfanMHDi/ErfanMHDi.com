@@ -655,17 +655,16 @@ section .Wrapper .Bento .Benex .Wrapper {
 	gap: var(--System-Gap);
 }
 
-section .Wrapper .Bento .Benex .Wrapper .WaterMark {
+section .Wrapper .Bento .Benex .Wrapper .WaterMark {    
 	position: absolute;
-	top: 50%;
-	left: 50%;
-	width: 128%;
-	height: 128%;
-	opacity: 0.32;
-	z-index: 0;
-	-webkit-filter: saturate(185%) blur(32px);
-	filter: saturate(185%) blur(32px);
-	transform: translate(-50%, -50%) rotate(64deg) skew(116deg, 216deg);
+    inset: 0;
+    width: 128%;
+    height: 128%;
+    margin: auto;
+    opacity: 0.64;
+    z-index: 0;
+    -webkikt-filter: url(#BlurEffect) saturate(185%);
+    filter: url(#BlurEffect) saturate(185%);
 }
 
 section .Wrapper .Bento .Benex .Wrapper .Header {
@@ -1806,19 +1805,6 @@ section .Wrapper .Bento .Benex.Transparent .Wrapper .Header .Text .Title {
 
 #Services .Wrapper .Bento .Benex .Wrapper {
 	gap: 16px;
-}
-
-#Services .Wrapper .Bento .Benex .Wrapper .WaterMark {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	width: 128%;
-	height: 128%;
-	opacity: 0.32;
-	z-index: 0;
-	-webkit-filter: saturate(185%) blur(32px);
-	filter: saturate(185%) blur(32px);
-	transform: translate(-50%, -50%) rotate(64deg) skew(116deg, 216deg);
 }
 
 #Services .Wrapper .Bento .Benex .Wrapper .Desc {
