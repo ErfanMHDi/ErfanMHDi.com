@@ -243,6 +243,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 		}
 		container.style.position = "relative";
 		const engine = Engine.create();
+		engine.gravity.y = isMobile ? 0.5 : 1; 
 		const world = engine.world;
 		const render = Render.create({
 			element: container,
@@ -287,10 +288,10 @@ document.addEventListener("DOMContentLoaded", async function () {
 				rect.width,
 				rect.height,
 				{
-					restitution: 0.32,
+					restitution: isMobile ? 0.15 : 0.32,
 					friction: 0.1,
 					density: 0.02,
-					frictionAir: 0.02, // add gentle air friction
+					frictionAir: isMobile ? 0.08 : 0.02, 
 					chamfer: { radius: Math.min(rect.width, rect.height) / 2 },
 					render: { visible: false },
 				}
@@ -305,6 +306,10 @@ document.addEventListener("DOMContentLoaded", async function () {
 				lastY: body.position.y,
 				lastAngle: body.angle
 			});
+		});
+		world.bodies.forEach(body => {
+			body.sleepThreshold = 20; 
+			body.sleepSpeedLimit = 0.01; 
 		});
 		function repositionObjects() {
 			const width = container.clientWidth;
@@ -375,10 +380,17 @@ document.addEventListener("DOMContentLoaded", async function () {
 					}
 				});
 			}
-			requestAnimationFrame(updateSpans);
+			if (!isMobile) {
+				requestAnimationFrame(updateSpans);
+			}
 		}
-		updateSpans();
+		if (isMobile) {
+			setInterval(updateSpans, 33); // around 30 FPS
+		} else {
+			updateSpans(); // for desktop, start requestAnimationFrame loop
+		}
 		mouse.element.removeEventListener('wheel', mouse.mousewheel);
+	
 	}
 	function runGravityWhenWrapperAtViewportCenter() {
 		const wrapper = document.querySelector("#Services .DEV .Wrapper");
