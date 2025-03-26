@@ -13,6 +13,7 @@ Version: 1.0.0
 	font-family: IRANYekanX-VF;
 	font-weight: 100 1000;
 	font-display: fallback;
+	font-display: swap;
 	src: url("../fonts/woff/IRANYekanX-VF.woff") format("woff-variations"), url("../fonts/woff2/IRANYekanX-VF.woff2") format("woff2"), url("../fonts/woff/IRANYekanX-VF.woff") format("woff");
 }
 
