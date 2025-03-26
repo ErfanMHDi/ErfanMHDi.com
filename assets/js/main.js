@@ -393,168 +393,174 @@ document.addEventListener("DOMContentLoaded", async function () {
 	/*-----------------------------------------------------------------------------*/
 	/* Music Benex ----------------------------------------------------------------*/
 	/*-----------------------------------------------------------------------------*/
-    const audioElement = document.querySelector('.Music audio');
-    let currentAudioIndex = 0;
-    const sources = audioElement.querySelectorAll('source');
-    const audioList = Array.from(sources).map(source => source.src);
-    async function loadJsmediatagsAndReadMetadata() {
-        try {
-            await import('../js/jsmediatags.min.js');
-            const jsmediatags = window.jsmediatags;
-            const audioUrl = audioList[currentAudioIndex];
-            audioElement.src = audioUrl;
-            audioElement.load();
-            audioElement.oncanplaythrough = function () {
-                jsmediatags.read(audioElement.currentSrc, {
-                    onSuccess: function (tag) {
-                        const poster = tag.tags.picture;
-                        const title = tag.tags.title;
-                        const artist = tag.tags.artist;
-						if (poster) {
-							const byteArray = new Uint8Array(poster.data);
-							let binary = '';
-							byteArray.forEach((byte) => {
-								binary += String.fromCharCode(byte);
-							});
-							const base64Image = window.btoa(binary);
-							const imageUrl = 'data:' + poster.format + ';base64,' + base64Image;
-							const imgElement = document.querySelectorAll('.Music .ArtWork img');
-							imgElement.forEach((img) => {
-								if (imgElement) {
-									img.src = imageUrl;
-								}
-							});
-						}
-                        const titleElement = document.querySelector('.Music strong');
-                        if (titleElement) {
-                            titleElement.textContent = title || 'Unknown Title';
-                        }
-                        const artistElement = document.querySelector('.Music p');
-                        if (artistElement) {
-                            artistElement.textContent = artist || 'Unknown Artist';
-                        }
-                        updateRemainingTimeDisplay();
-                    },
-                    onError: function (error) {
-                        console.error("⚠️ Error reading Music MetaData:", error);
-                    }
-                });
-            };
-        } catch (error) {
-            console.error("❌ Failed to load jsMediaTags:", error);
-        }
-    }
-
-    function updateRemainingTimeDisplay() {
-        const durationFloored = Math.floor(audioElement.duration);
-        const remainingTime = isNaN(durationFloored) ? 0 : durationFloored;
-        const remainingMinutes = Math.floor(remainingTime / 60);
-        const remainingSeconds = remainingTime % 60;
-        if (remainingTime === 0) {
-            durationTimeDisplay.textContent = '0:00';
-        } else {
-            durationTimeDisplay.textContent = `-${remainingMinutes}:${remainingSeconds < 10 ? '0' + remainingSeconds : remainingSeconds}`;
-        }
-    }
-    loadJsmediatagsAndReadMetadata();
-
-    const progressBar = document.querySelector('.Benex.Music .Wrapper .ProgressBar');
-    const currentTimeDisplay = document.querySelector('.Benex.Music .Wrapper .Current');
-    const durationTimeDisplay = document.querySelector('.Benex.Music .Wrapper .Duration');
-    audioElement.addEventListener('timeupdate', function () {
-        let progress = isNaN((audioElement.currentTime / audioElement.duration) * 100) ? 0 : (audioElement.currentTime / audioElement.duration) * 100;		
-        progressBar.value = progress;
-        progressBar.style.setProperty('--value', progressBar.value);
-        progressBar.style.setProperty('--min', progressBar.min == '' ? '0' : progressBar.min);
-        progressBar.style.setProperty('--max', progressBar.max == '' ? '100' : progressBar.max);
-    
-        // Floor both currentTime and duration to remove decimals
-        const currentTimeFloored = Math.floor(audioElement.currentTime);
-        const durationFloored = Math.floor(audioElement.duration);
-    
-        const currentMinutes = isNaN(currentTimeFloored / 60) ? 0 : Math.floor(currentTimeFloored / 60);
-        const currentSeconds = isNaN(currentTimeFloored % 60) ? 0 : Math.floor(currentTimeFloored % 60);
-    
-        // Calculate the remaining time
-        const remainingTime = isNaN(durationFloored - currentTimeFloored) ? 0 : Math.floor(durationFloored - currentTimeFloored);
-        const remainingMinutes = isNaN(remainingTime / 60) ? 0 : Math.floor(remainingTime / 60);
-        const remainingSeconds = isNaN(remainingTime % 60) ? 0 : Math.floor(remainingTime % 60);
-    
-        // Update the current time display immediately
-        currentTimeDisplay.textContent = `${currentMinutes}:${currentSeconds < 10 ? '0' + currentSeconds : currentSeconds}`;
-        // Show remaining time as negative (time left)
-        if (remainingTime === 0) {
-            durationTimeDisplay.textContent = '0:00';
-        } else {
-            durationTimeDisplay.textContent = `-${remainingMinutes}:${remainingSeconds < 10 ? '0' + remainingSeconds : remainingSeconds}`;
-        }
-    });
-    progressBar.addEventListener('input', function () {
-        const seekTime = (progressBar.value / 100) * audioElement.duration;
-        audioElement.currentTime = seekTime;
-        progressBar.style.setProperty('--value', progressBar.value);
-    });
-
-    const playButton = document.querySelector('.Music .Controls .Play');
-    const pauseButton = document.querySelector('.Music .Controls .Pause');
-    function updatePlayPauseButtons() {
-        if (audioElement.paused) {
+	const audioElement = document.querySelector('.Music audio');
+	let currentAudioIndex = 0;
+	
+	// Get all <source> elements (original list)
+	const sources = audioElement.querySelectorAll('source');
+	const audioList = Array.from(sources).map(source => source.src);
+	
+	function updateSourceForCurrentAudio() {
+		const sources = audioElement.querySelectorAll('source');
+	
+		sources.forEach((source, index) => {
+			source.src = index === currentAudioIndex ? audioList[index] : '';
+		});
+	
+		audioElement.load(); // Load the newly selected track
+	}
+	
+	async function loadJsmediatagsAndReadMetadata() {
+		try {
+			await import('../js/jsmediatags.min.js');
+			const jsmediatags = window.jsmediatags;
+			const audioUrl = audioList[currentAudioIndex];
+	
+			jsmediatags.read(audioUrl, {
+				onSuccess: function (tag) {
+					const poster = tag.tags.picture;
+					const title = tag.tags.title;
+					const artist = tag.tags.artist;
+	
+					if (poster) {
+						const byteArray = new Uint8Array(poster.data);
+						let binary = '';
+						byteArray.forEach((byte) => {
+							binary += String.fromCharCode(byte);
+						});
+						const base64Image = window.btoa(binary);
+						const imageUrl = 'data:' + poster.format + ';base64,' + base64Image;
+	
+						document.querySelectorAll('.Music .ArtWork img').forEach((img) => {
+							img.src = imageUrl;
+						});
+					}
+	
+					const titleElement = document.querySelector('.Music strong');
+					if (titleElement) {
+						titleElement.textContent = title || 'Unknown Title';
+					}
+	
+					const artistElement = document.querySelector('.Music p');
+					if (artistElement) {
+						artistElement.textContent = artist || 'Unknown Artist';
+					}
+	
+					updateRemainingTimeDisplay();
+				},
+				onError: function (error) {
+					console.error("⚠️ Error reading Music MetaData:", error);
+				}
+			});
+		} catch (error) {
+			console.error("❌ Failed to load jsMediaTags:", error);
+		}
+	}
+	
+	function updateRemainingTimeDisplay() {
+		const durationFloored = Math.floor(audioElement.duration);
+		const remainingTime = isNaN(durationFloored) ? 0 : durationFloored;
+		const remainingMinutes = Math.floor(remainingTime / 60);
+		const remainingSeconds = remainingTime % 60;
+	
+		durationTimeDisplay.textContent =
+			remainingTime === 0
+				? '0:00'
+				: `-${remainingMinutes}:${remainingSeconds < 10 ? '0' + remainingSeconds : remainingSeconds}`;
+	}
+	
+	const progressBar = document.querySelector('.Benex.Music .Wrapper .ProgressBar');
+	const currentTimeDisplay = document.querySelector('.Benex.Music .Wrapper .Current');
+	const durationTimeDisplay = document.querySelector('.Benex.Music .Wrapper .Duration');
+	
+	audioElement.addEventListener('timeupdate', function () {
+		const progress = isNaN(audioElement.currentTime / audioElement.duration * 100) ? 0 : (audioElement.currentTime / audioElement.duration) * 100;
+		progressBar.value = progress;
+		progressBar.style.setProperty('--value', progressBar.value);
+		progressBar.style.setProperty('--min', progressBar.min || '0');
+		progressBar.style.setProperty('--max', progressBar.max || '100');
+	
+		const currentTimeFloored = Math.floor(audioElement.currentTime);
+		const durationFloored = Math.floor(audioElement.duration);
+		const currentMinutes = Math.floor(currentTimeFloored / 60);
+		const currentSeconds = currentTimeFloored % 60;
+		const remainingTime = Math.floor(durationFloored - currentTimeFloored);
+		const remainingMinutes = Math.floor(remainingTime / 60);
+		const remainingSeconds = remainingTime % 60;
+	
+		currentTimeDisplay.textContent = `${currentMinutes}:${currentSeconds < 10 ? '0' + currentSeconds : currentSeconds}`;
+		durationTimeDisplay.textContent =
+			remainingTime === 0
+				? '0:00'
+				: `-${remainingMinutes}:${remainingSeconds < 10 ? '0' + remainingSeconds : remainingSeconds}`;
+	});
+	
+	progressBar.addEventListener('input', function () {
+		const seekTime = (progressBar.value / 100) * audioElement.duration;
+		audioElement.currentTime = seekTime;
+		progressBar.style.setProperty('--value', progressBar.value);
+	});
+	
+	const playButton = document.querySelector('.Music .Controls .Play');
+	const pauseButton = document.querySelector('.Music .Controls .Pause');
+	
+	function updatePlayPauseButtons() {
+		if (audioElement.paused) {
 			playButton.classList.remove('Hide');
 			pauseButton.classList.add('Hide');
-        } else {
+		} else {
 			pauseButton.classList.remove('Hide');
 			playButton.classList.add('Hide');
-        }
-    }
-    updatePlayPauseButtons();
-    playButton.addEventListener('click', function () {
+		}
+	}
+	updatePlayPauseButtons();
+	
+	playButton.addEventListener('click', function () {
 		audioElement.play();
 		updatePlayPauseButtons();
 	});
-    pauseButton.addEventListener('click', function () {
+	
+	pauseButton.addEventListener('click', function () {
 		audioElement.pause();
 		updatePlayPauseButtons();
-    });
-
-    const prevButton = document.querySelector('.Music .Controls .Prev');
-    const nextButton = document.querySelector('.Music .Controls .Next');
+	});
+	
+	const prevButton = document.querySelector('.Music .Controls .Prev');
+	const nextButton = document.querySelector('.Music .Controls .Next');
+	
 	prevButton.addEventListener('click', function () {
 		const isPlaying = !audioElement.paused;
 		currentAudioIndex = (currentAudioIndex - 1 + audioList.length) % audioList.length;
+		updateSourceForCurrentAudio();
 		loadJsmediatagsAndReadMetadata();
-		audioElement.load();
-		setTimeout(() => {
-			if (isPlaying) {
-				audioElement.play();
-				updatePlayPauseButtons();
-			} else {
-				updatePlayPauseButtons();
-			}
-		}, 100);
+		if (isPlaying) {
+			audioElement.play();
+		}
+		updatePlayPauseButtons();
 	});
+	
 	nextButton.addEventListener('click', function () {
 		const isPlaying = !audioElement.paused;
 		currentAudioIndex = (currentAudioIndex + 1) % audioList.length;
+		updateSourceForCurrentAudio();
 		loadJsmediatagsAndReadMetadata();
-		audioElement.load();
-		setTimeout(() => {
-			if (isPlaying) {
-				audioElement.play();
-				updatePlayPauseButtons();
-			} else {
-				updatePlayPauseButtons();
-			}
-		}, 100);
+		if (isPlaying) {
+			audioElement.play();
+		}
+		updatePlayPauseButtons();
 	});
+	
 	audioElement.addEventListener('ended', function () {
 		currentAudioIndex = (currentAudioIndex + 1) % audioList.length;
+		updateSourceForCurrentAudio();
 		loadJsmediatagsAndReadMetadata();
-		audioElement.load();
-		setTimeout(() => {
-			audioElement.play();
-			updatePlayPauseButtons();
-		}, 100);
+		audioElement.play();
+		updatePlayPauseButtons();
 	});
+	
+	// 👇 Initial call (lazy load first song when user interacts)
+	updateSourceForCurrentAudio();
+	loadJsmediatagsAndReadMetadata();
 	
 
 	/*-----------------------------------------------------------------------------*/
