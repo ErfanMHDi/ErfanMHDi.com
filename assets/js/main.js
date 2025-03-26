@@ -399,7 +399,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     const audioList = Array.from(sources).map(source => source.src);
     async function loadJsmediatagsAndReadMetadata() {
         try {
-            await import('https://cdn.jsdelivr.net/npm/jsmediatags@3.9.1/dist/jsmediatags.min.js');
+            await import('../js/jsmediatags.min.js');
             const jsmediatags = window.jsmediatags;
             const audioUrl = audioList[currentAudioIndex];
             audioElement.src = audioUrl;
