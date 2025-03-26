@@ -2668,7 +2668,7 @@ html[lights=off] #Works .Wrapper .Bento .Benex:not(:first-child) .Wrapper:after 
 }
 
 #Me .Wrapper .Bento .Benex.Music .Wrapper {
-	background: linear-gradient(to top, var(--System-ColorRed) 50%, var(--System-ColorPink) 100%);
+	/* background: linear-gradient(to top, var(--System-ColorRed) 50%, var(--System-ColorPink) 100%); */
 	display: flex;
 	flex-direction: column;
 	flex-wrap: nowrap;
