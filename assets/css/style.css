@@ -399,6 +399,7 @@ a:focus {
 	animation-timing-function: linear;
 	animation-iteration-count: infinite;
 	opacity: 0.32;
+	will-change: transform;
 }
 
 .Background .Wrapper span:nth-child(0) {
@@ -504,8 +505,8 @@ a:focus {
 	width: 100vw;
 	height: 100vh;
 	content: "";
-	-webkit-backdrop-filter: saturate(185%) blur(185px);
-	backdrop-filter: saturate(185%) blur(185px);
+	/* -webkit-backdrop-filter: saturate(185%) blur(185px);
+	backdrop-filter: saturate(185%) blur(185px); */
 	z-index: 1;
 }
 
@@ -689,8 +690,8 @@ section .Wrapper .Bento .Benex .Wrapper .Header {
 }
 section .Wrapper .Bento .Benex .Wrapper .Header .Icon {
 	max-width: 72px;
-	-webkit-filter: saturate(164%) blur(0);
-	filter: saturate(164%) blur(0);
+	-webkit-filter: saturate(185%);
+	filter: saturate(185%)
 }
 
 section .Wrapper .Bento .Benex .Wrapper .Header .Text {
@@ -1839,6 +1840,7 @@ section .Wrapper .Bento .Benex.Transparent .Wrapper .Header .Text .Title {
 	pointer-events: none;
 	padding: 5px;
 	overflow: hidden;
+	will-change: transform;
 }
 
 #Services .Wrapper .Bento .Benex.DEV .Wrapper .Pill .Wrp {
@@ -1971,8 +1973,8 @@ section .Wrapper .Bento .Benex.Transparent .Wrapper .Header .Text .Title {
 	height: auto;
 	opacity: 1;
 	z-index: 0;
-	-webkit-filter: saturate(128%) blur(0px);
-	filter: saturate(128%) blur(0px);
+	-webkit-filter: saturate(185%);
+	filter: saturate(185%);
 	transform: rotate(-90deg);
 	transition: right 0.25s ease, left 0.25s ease;
 }
@@ -2063,8 +2065,8 @@ section .Wrapper .Bento .Benex.Transparent .Wrapper .Header .Text .Title {
     background: var(--System-Color);
     height: 100%;
     width: 100%;
-    filter: saturate(128%) blur(0px);
-    filter: saturate(128%) blur(0px);
+    filter: saturate(185%);
+    filter: saturate(185%);
     background-image: linear-gradient(to bottom, var(--System-Color) 50%, var(--System-Color2) 100%);
     opacity: 0.64;
 }
@@ -2702,8 +2704,8 @@ html[lights=off] #Works .Wrapper .Bento .Benex:not(:first-child) .Wrapper:after 
 	margin: auto;
 	object-fit: cover;
 	object-position: center;
-	-webkit-filter: saturate(185%) blur(32px);
-	filter: saturate(185%) blur(32px);
+    -webkikt-filter: url(#BlurEffect) saturate(185%);
+    filter: url(#BlurEffect) saturate(185%);
 	transform: translate(-50%, -50%) rotate3d(32, 32, 32, -64deg) scale(1.64);
 	z-index: 0;
 }
