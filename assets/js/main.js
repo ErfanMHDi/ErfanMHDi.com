@@ -13,29 +13,38 @@ document.addEventListener("DOMContentLoaded", async function () {
 	/* ScrollDown Animation -------------------------------------------------------*/
 	/*-----------------------------------------------------------------------------*/
 	const totalFrames = 60;
-	let current = 1;
 	const fps = 30;
 	const frameDuration = 1000 / fps;
-	const scrollElement = document.getElementById("ScrollDown");
+	let current = 0;
+	let lastTime = performance.now();
+	const canvas = document.getElementById("ScrollCanvas");
+	const ctx = canvas.getContext("2d");
+	const frames = [];
 	const preloadFrames = () => {
+	  let loaded = 0;
 	  for (let i = 1; i <= totalFrames; i++) {
 		const frameNum = i.toString().padStart(2, '0');
 		const img = new Image();
+		img.onload = () => {
+		  loaded++;
+		  if (loaded === totalFrames) {
+			requestAnimationFrame(animate);
+		  }
+		};
 		img.src = `assets/img/hero/ScrollDown/ScrollDown-${frameNum}.svg`;
+		frames.push(img);
 	  }
 	};
-	preloadFrames();
-	let lastTime = performance.now();
 	const animate = (now) => {
 	  if (now - lastTime >= frameDuration) {
-		current = (current % totalFrames) + 1;
-		const frameNum = current.toString().padStart(2, '0');
-		scrollElement.src = `assets/img/hero/ScrollDown/ScrollDown-${frameNum}.svg`;
+		current = (current + 1) % totalFrames;
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+		ctx.drawImage(frames[current], 0, 0, canvas.width, canvas.height);
 		lastTime = now;
 	  }
 	  requestAnimationFrame(animate);
 	};
-	requestAnimationFrame(animate);
+	preloadFrames();
 
 
 	/*-----------------------------------------------------------------------------*/
