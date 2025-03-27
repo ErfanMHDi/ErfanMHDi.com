@@ -385,8 +385,6 @@ a:focus {
 	top: 0;
 	left: 0;
 	overflow: hidden;
-	/* -webkikt-filter: url(#BlurEffect);
-	filter: url(#BlurEffect); */
 }
 
 .Background .Wrapper span {
@@ -401,10 +399,16 @@ a:focus {
 	animation-iteration-count: infinite;
 	opacity: 0.32;
 	will-change: transform;
+	background-color: transparent !important;
+	filter: saturate(185%);
+}
+html[lights=off] .Background .Wrapper span {
+	opacity: 0.16;
 }
 
 .Background .Wrapper span:nth-child(0) {
 	background-color: var(--System-ColorRed);
+	box-shadow: var(--System-ColorRed) -100vmin 0px 16vmin;
 	top: 75%;
 	left: 51%;
 	animation-delay: -1s;
@@ -413,6 +417,7 @@ a:focus {
 
 .Background .Wrapper span:nth-child(1) {
 	background-color: var(--System-ColorOrange);
+	box-shadow: var(--System-ColorOrange) -100vmin 0px 16vmin;
 	top: 83%;
 	left: 65%;
 	animation-delay: -1s;
@@ -421,6 +426,7 @@ a:focus {
 
 .Background .Wrapper span:nth-child(2) {
 	background-color: var(--System-ColorYellow);
+	box-shadow: var(--System-ColorYellow) 100vmin 0px 16vmin;
 	top: 24%;
 	left: 79%;
 	animation-delay: -1s;
@@ -429,6 +435,7 @@ a:focus {
 
 .Background .Wrapper span:nth-child(3) {
 	background-color: var(--System-ColorGreen);
+	box-shadow: var(--System-ColorGreen) -100vmin 0px 16vmin;
 	top: 86%;
 	left: 55%;
 	animation-delay: -1s;
@@ -437,6 +444,7 @@ a:focus {
 
 .Background .Wrapper span:nth-child(4) {
 	background-color: var(--System-ColorMint);
+	box-shadow: var(--System-ColorRed) 100vmin 0px 16vmin;
 	top: 50%;
 	left: 25%;
 	animation-delay: -1s;
@@ -445,6 +453,7 @@ a:focus {
 
 .Background .Wrapper span:nth-child(5) {
 	background-color: var(--System-ColorTeal);
+	box-shadow: var(--System-ColorTeal) 100vmin 0px 16vmin;
 	top: 21%;
 	left: 66%;
 	animation-delay: -1s;
@@ -453,6 +462,7 @@ a:focus {
 
 .Background .Wrapper span:nth-child(6) {
 	background-color: var(--System-ColorCyan);
+	box-shadow: var(--System-ColorCyan) 100vmin 0px 16vmin;
 	top: 73%;
 	left: 56%;
 	animation-delay: -1s;
@@ -461,6 +471,7 @@ a:focus {
 
 .Background .Wrapper span:nth-child(7) {
 	background-color: var(--System-ColorBlue);
+	box-shadow: var(--System-ColorBlue) -100vmin 0px 16vmin;
 	top: 6%;
 	left: 14%;
 	animation-delay: -1s;
@@ -469,6 +480,7 @@ a:focus {
 
 .Background .Wrapper span:nth-child(8) {
 	background-color: var(--System-ColorIndigo);
+	box-shadow: var(--System-ColorIndigo) 100vmin 0px 16vmin;
 	top: 30%;
 	left: 83%;
 	animation-delay: -1s;
@@ -477,6 +489,7 @@ a:focus {
 
 .Background .Wrapper span:nth-child(9) {
 	background-color: var(--System-ColorPurple);
+	box-shadow: var(--System-ColorPurple) 100vmin 0px 16vmin;
 	top: 2%;
 	left: 2%;
 	animation-delay: -1s;
@@ -485,6 +498,7 @@ a:focus {
 
 .Background .Wrapper span:nth-child(10) {
 	background-color: var(--System-ColorPink);
+	box-shadow: var(--System-ColorPink) -100vmin 0px 16vmin;
 	top: 88%;
 	left: 45%;
 	animation-delay: -1s;
@@ -493,6 +507,7 @@ a:focus {
 
 .Background .Wrapper span:nth-child(11) {
 	background-color: var(--System-ColorBrown);
+	box-shadow: var(--System-ColorBrown) 100vmin 0px 16vmin;
 	top: 83%;
 	left: 74%;
 	animation-delay: -1s;
@@ -506,9 +521,8 @@ a:focus {
 	width: 100vw;
 	height: 100vh;
 	content: "";
-	/* -webkit-backdrop-filter: saturate(185%) blur(185px);
-	backdrop-filter: saturate(185%) blur(185px); */
 	z-index: 1;
+    background: var(--System-ColorGlow);
 }
 
 .Background:after {
@@ -1033,6 +1047,8 @@ section .Wrapper .Bento .Benex.Transparent .Wrapper .Header .Text .Title {
 	opacity: 0.32;
 	font-variation-settings: "wght" 200, "dots" 4;
 	display: inline;
+	content-visibility: auto;
+	contain: layout paint style;
 }
 
 @media only screen and (max-width: 768px) {
@@ -1055,6 +1071,8 @@ section .Wrapper .Bento .Benex.Transparent .Wrapper .Header .Text .Title {
 	line-height: 3.25rem;
 	font-variation-settings: "wght" 950, "dots" 4;
 	display: inline;
+	content-visibility: auto;
+	contain: layout paint style;
 }
 
 @media only screen and (max-width: 768px) {
@@ -1831,7 +1849,7 @@ section .Wrapper .Bento .Benex.Transparent .Wrapper .Header .Text .Title {
 	position: relative;
 	overflow: hidden;
 }
-#Services .Wrapper .Bento .Benex.DEV .Wrapper:before {
+#Services .Wrapper .Bento .Benex .Wrapper:before {
 	content: "";
     position: absolute;
     width: 100%;
@@ -1839,11 +1857,50 @@ section .Wrapper .Bento .Benex.Transparent .Wrapper .Header .Text .Title {
     inset: 0;
     margin: auto;
     filter: saturate(185%);
-    background-image: radial-gradient(30deg, #446ec34d 10%, #989da84f 70%);
-    background: radial-gradient(#446ec3bf 0%, var(--System-ColorBG2) 65%);
+    opacity: 0.64;
+}
+#Services .Wrapper .Bento .Benex.DEV .Wrapper:before {
+    opacity: 1;
+    background: radial-gradient(#446ec3bf 0%, var(--System-ColorBG) 65%);
     background-position: -16px -188px;
     background-repeat: repeat;
     background-size: 200%;
+}
+#Services .Wrapper .Bento .Benex.DSG .Wrapper:before {
+    background: radial-gradient(#44b5c33b 0%, var(--System-ColorBG) 65%);
+    background-position: center -128px;
+    background-repeat: repeat;
+    background-size: 200%;
+}
+#Services .Wrapper .Bento .Benex.SEO .Wrapper:before {
+    background: radial-gradient(#62c34421 0%, var(--System-ColorBG) 65%);
+    background-position: center 100%;
+    background-repeat: repeat;
+    background-size: 8px 150%;
+}
+#Services .Wrapper .Bento .Benex.SMG .Wrapper:before {
+    background: radial-gradient(#8a44c352 0%, var(--System-ColorBG) 65%);
+    background-position: 100% -256px;
+    background-repeat: repeat;
+    background-size: 300%;
+}
+#Services .Wrapper .Bento .Benex.VDO .Wrapper:before {    
+	background: radial-gradient(#00fffb54 0%, var(--System-ColorBG) 70%);
+    background-position: -290px -58px;
+    background-repeat: repeat;
+    background-size: 120% 70%;
+}
+#Services .Wrapper .Bento .Benex.CNT .Wrapper:before {
+    background: radial-gradient(hsl(0deg 1.67% 46.97% / 30%) 0%, var(--System-ColorBG) 65%);
+    background-position: -16px -188px;
+    background-repeat: repeat;
+    background-size: 300% 8px;
+}
+#Services .Wrapper .Bento .Benex.PWA .Wrapper:before {
+    background: radial-gradient(#ff49001a 0%, var(--System-ColorBG) 65%);
+    background-position: center -100px;
+    background-repeat: repeat;
+    background-size: 150%;
 }
 
 #Services .Wrapper .Bento .Benex .Wrapper .WaterMark {    
@@ -1854,8 +1911,8 @@ section .Wrapper .Bento .Benex.Transparent .Wrapper .Header .Text .Title {
     margin: auto;
     opacity: 0.64;
     z-index: 0;
-    -webkikt-filter: url(#BlurEffect) saturate(185%);
-    filter: url(#BlurEffect) saturate(185%);
+    -webkikt-filter: saturate(185%);
+    filter: saturate(185%);
 }
 #Services .Wrapper .Bento .Benex.DEV .Wrapper .Pill {
 	display: inline-block;
@@ -2729,8 +2786,8 @@ html[lights=off] #Works .Wrapper .Bento .Benex:not(:first-child) .Wrapper:after 
 	margin: auto;
 	object-fit: cover;
 	object-position: center;
-    -webkikt-filter: url(#BlurEffect) saturate(185%);
-    filter: url(#BlurEffect) saturate(185%);
+    -webkikt-filter: saturate(185%) blur(85px);
+    filter: saturate(185%) blur(85px);
 	transform: translate(-50%, -50%) rotate3d(32, 32, 32, -64deg) scale(1.64);
 	z-index: 0;
 }
