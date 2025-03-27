@@ -263,15 +263,30 @@ document.addEventListener("DOMContentLoaded", async function () {
 	/*-----------------------------------------------------------------------------*/
 	/* Gravity Benex --------------------------------------------------------------*/
 	/*-----------------------------------------------------------------------------*/
-	function initGravity() {
-		const { Engine, Render, Runner, Bodies, World, Mouse, MouseConstraint, Composite } = Matter;
+	function loadMatterScript() {
+		return new Promise((resolve, reject) => {
+			if (window.Matter) return resolve(window.Matter);
+
+			const script = document.createElement("script");
+			script.src = "../assets/js/matter.min.js"; // adjust path if needed
+			script.onload = () => resolve(window.Matter);
+			script.onerror = reject;
+			document.head.appendChild(script);
+		});
+	}
+
+	async function initGravity() {
+		const Matter = await loadMatterScript();
+		const { Engine, Render, Runner, Bodies, World, Mouse, MouseConstraint } = Matter;
+
 		const container = document.querySelector("#Services .DEV .Wrapper");
-		if (!container) {
-			return;
-		}
+		if (!container) return;
+
 		container.style.position = "relative";
+
 		const engine = Engine.create();
 		const world = engine.world;
+
 		const render = Render.create({
 			element: container,
 			engine: engine,
@@ -284,31 +299,42 @@ document.addEventListener("DOMContentLoaded", async function () {
 				enabled: false
 			},
 		});
+
 		Render.run(render);
+
 		const runner = Runner.create();
 		Runner.run(runner, engine);
+
 		render.canvas.addEventListener("wheel", (event) => {
 			event.stopPropagation();
 		}, { passive: true });
+
 		let ground, leftWall, rightWall, topWall;
+
 		function createBoundaries() {
 			const width = container.clientWidth;
 			const height = container.clientHeight;
 			if (ground) World.remove(world, [ground, leftWall, rightWall, topWall]);
+
 			ground = Bodies.rectangle(width / 2, height - 5, width, 10, { isStatic: true, render: { visible: false } });
 			leftWall = Bodies.rectangle(5, height / 2, 10, height, { isStatic: true, render: { visible: false } });
 			rightWall = Bodies.rectangle(width - 5, height / 2, 10, height, { isStatic: true, render: { visible: false } });
 			topWall = Bodies.rectangle(width / 2, 5, width, 10, { isStatic: true, render: { visible: false } });
+
 			World.add(world, [ground, leftWall, rightWall, topWall]);
 		}
+
 		setTimeout(createBoundaries, 50);
+
 		const spans = container.querySelectorAll(".Pill");
 		const spanBodies = [];
+
 		spans.forEach((span) => {
 			const rect = span.getBoundingClientRect();
 			const containerRect = container.getBoundingClientRect();
 			const initialWidth = rect.width;
 			const initialHeight = rect.height;
+
 			const body = Bodies.rectangle(
 				rect.left - containerRect.left + rect.width / 2,
 				rect.top - containerRect.top + rect.height / 2,
@@ -318,14 +344,16 @@ document.addEventListener("DOMContentLoaded", async function () {
 					restitution: 0.32,
 					friction: 0.1,
 					density: 0.02,
-					frictionAir: 0.02, // add gentle air friction
+					frictionAir: 0.02,
 					chamfer: { radius: Math.min(rect.width, rect.height) / 2 },
 					render: { visible: false },
 				}
 			);
+
 			World.add(world, body);
 			spanBodies.push({ element: span, body, initialWidth, initialHeight });
 		});
+
 		function repositionObjects() {
 			const width = container.clientWidth;
 			const height = container.clientHeight;
@@ -336,6 +364,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 				});
 			});
 		}
+
 		function resizeRender() {
 			const width = container.clientWidth;
 			const height = container.clientHeight;
@@ -349,11 +378,13 @@ document.addEventListener("DOMContentLoaded", async function () {
 			createBoundaries();
 			repositionObjects();
 		}
+
 		let resizeTimeout;
 		window.addEventListener("resize", () => {
 			clearTimeout(resizeTimeout);
 			resizeTimeout = setTimeout(resizeRender, 200);
 		});
+
 		const mouse = Mouse.create(render.canvas);
 		const mouseConstraint = MouseConstraint.create(engine, {
 			mouse: mouse,
@@ -362,8 +393,10 @@ document.addEventListener("DOMContentLoaded", async function () {
 				render: { visible: false },
 			},
 		});
+
 		World.add(world, mouseConstraint);
 		render.mouse = mouse;
+
 		container.addEventListener("mouseleave", () => {
 			if (mouseConstraint.body) {
 				mouseConstraint.body = null;
@@ -372,11 +405,14 @@ document.addEventListener("DOMContentLoaded", async function () {
 			mouseConstraint.constraint.bodyB = null;
 			mouseConstraint.constraint.pointB = null;
 		});
+
 		engine.enableSleeping = true;
+
 		let frameCount = 0;
+
 		function updateSpans() {
 			frameCount++;
-			if (frameCount % 2 === 0) { // update every other frame
+			if (frameCount % 2 === 0) {
 				spanBodies.forEach(({ element, body, initialWidth, initialHeight }) => {
 					element.style.position = "absolute";
 					element.style.left = `${body.position.x - initialWidth / 2}px`;
@@ -386,26 +422,34 @@ document.addEventListener("DOMContentLoaded", async function () {
 			}
 			requestAnimationFrame(updateSpans);
 		}
+
 		updateSpans();
+
 		mouse.element.removeEventListener('wheel', mouse.mousewheel);
 	}
+
 	function runGravityWhenWrapperAtViewportCenter() {
 		const wrapper = document.querySelector("#Services .DEV .Wrapper");
 		if (!wrapper) return;
+
 		let gravityInitialized = false;
+
 		function checkWrapperCenter() {
 			if (gravityInitialized) return;
+
 			const rect = wrapper.getBoundingClientRect();
 			const wrapperCenterY = rect.top + rect.height / 2;
 			const viewportCenterY = window.innerHeight / 2;
 			const offset = Math.abs(wrapperCenterY - viewportCenterY);
 			const tolerance = window.innerHeight * 0.5;
+
 			if (offset < tolerance) {
 				initGravity();
 				gravityInitialized = true;
 				window.removeEventListener('scroll', checkWrapperCenter);
 			}
-		} 
+		}
+
 		const observer = new IntersectionObserver((entries) => {
 			entries.forEach(entry => {
 				if (entry.isIntersecting && !gravityInitialized) {
@@ -414,8 +458,10 @@ document.addEventListener("DOMContentLoaded", async function () {
 				}
 			});
 		}, { threshold: 0.5 });
+
 		observer.observe(wrapper);
 	}
+
 	runGravityWhenWrapperAtViewportCenter();
 
 	/*-----------------------------------------------------------------------------*/
