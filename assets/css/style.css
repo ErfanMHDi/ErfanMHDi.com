@@ -2129,8 +2129,8 @@ section .Wrapper .Bento .Benex.Transparent .Wrapper .Header .Text .Title {
     background: var(--System-Color);
     height: 100%;
     width: 100%;
-    filter: saturate(185%);
-    filter: saturate(185%);
+    -webkit-filter: saturate(64%);
+    filter: saturate(64%);
     background-image: linear-gradient(to bottom, var(--System-Color) 50%, var(--System-Color2) 100%);
     opacity: 0.64;
 }
@@ -2464,8 +2464,8 @@ html[lights=off] #Works .Wrapper .Bento .Benex:not(:first-child) .Wrapper:after 
 }
 
 #Stats .Bento .Benex .Wrapper .Content .Title {
-	font-size: 3.5rem;
-	line-height: 3.75rem;
+	font-size: 3rem;
+	line-height: 3.25rem;
 	font-variation-settings: "wght" 800, "dots" 4;
 	color: var(--System-ColorPink);
 }
@@ -2475,8 +2475,8 @@ html[lights=off] #Works .Wrapper .Bento .Benex:not(:first-child) .Wrapper:after 
 }
 
 #Stats .Bento .Benex .Wrapper .Content .Desc {
-	font-size: 2.5rem;
-	line-height: 3.5rem;
+	font-size: 2rem;
+	line-height: 2rem;
 	font-variation-settings: "wght" 100, "dots" 4;
 	text-align: center;
 	color: var(--System-ColorText2);
