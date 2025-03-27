@@ -774,7 +774,7 @@ section .Wrapper .Bento .Benex.Transparent .Wrapper .Header .Text .Title {
 	padding: 8px 8px;
 	border-radius: 100px;
 	border: 2px solid var(--System-ColorSep);
-    margin-bottom: 24px;
+    margin-bottom: 32px;
 }
 
 #Hero .Wrapper .Status i {
@@ -833,6 +833,7 @@ section .Wrapper .Bento .Benex.Transparent .Wrapper .Header .Text .Title {
     justify-content: flex-start;
     align-items: center;
     gap: 10px;
+    margin-top: 24px;
 }
 .CTA .Reminder {
     color: var(--System-ColorText2);
@@ -1071,6 +1072,19 @@ section .Wrapper .Bento .Benex.Transparent .Wrapper .Header .Text .Title {
 	#Hero .Wrapper .Title .Text h2 {
 		font-size: 2.25rem;
 		line-height: 2.25rem;
+	}
+}
+@media only screen and (max-width: 428px) {
+	#Hero .Wrapper .Title .Text h1,
+	#Hero .Wrapper .Title .Text h2 {
+		font-size: 2rem;
+		line-height: 2rem;
+	}
+
+	#Hero .Wrapper .Title.Marketer .Text h1,
+	#Hero .Wrapper .Title.Marketer .Text h2 {
+		font-size: 1.75rem;
+		line-height: 2rem;
 	}
 }
 @media only screen and (max-width: 768px) {
