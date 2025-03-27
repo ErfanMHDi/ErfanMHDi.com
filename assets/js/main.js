@@ -4,9 +4,16 @@ document.addEventListener("DOMContentLoaded", async function () {
 	/*-----------------------------------------------------------------------------*/
 	/* PreLoader ------------------------------------------------------------------*/
 	/*-----------------------------------------------------------------------------*/
-	setTimeout(function () {
-		document.body.classList.add("Loaded");
-	}, 0);
+	const MIN_PRELOAD_TIME = 1500;
+	const start = performance.now();
+	window.addEventListener("load", () => {
+		const now = performance.now();
+		const elapsed = now - start;
+		const delay = Math.max(MIN_PRELOAD_TIME - elapsed, 0);
+		setTimeout(() => {
+			document.body.classList.add("Loaded");
+		}, delay);
+	});
 
 
 	/*-----------------------------------------------------------------------------*/
