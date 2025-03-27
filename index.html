@@ -46,8 +46,8 @@
 
 		<link rel="preload" href="assets/fonts/woff2/IRANYekanX-VF.woff2" as="font" type="font/woff2" crossorigin="anonymous">
 
-		<link rel="preload" href="assets/css/style.css?v2.27" as="style" type="text/css">
-		<link rel="stylesheet" href="assets/css/style.css?v2.27">
+		<link rel="preload" href="assets/css/style.css?v2.28" as="style" type="text/css">
+		<link rel="stylesheet" href="assets/css/style.css?v2.28">
 
 		<link rel="preload" as="image" href="assets/img/hero/Me-01.webp" type="image/webp">
 		<link rel="preload" as="image" href="assets/img/hero/Me-02.webp" type="image/webp">
@@ -55,6 +55,1050 @@
 		<link rel="preload" as="image" href="assets/img/hero/Me-04.webp" type="image/webp">
 		<link rel="preload" as="image" href="assets/img/hero/GetInTouch.svg" type="image/webp">
 		<link rel="preload" as="image" href="assets/img/hero/ScrollDown.gif" type="image/webp">
+		<style>
+			/*---------------------------------------------------------------------------------*/
+			/* Home Content Structure ---------------------------------------------------------*/
+			/*---------------------------------------------------------------------------------*/
+			#Hero {
+				position: -webkit-sticky;
+				position: sticky;
+				top: var(--System-Gap);
+				display: flex;
+				flex-direction: column;
+				flex-wrap: wrap;
+				align-content: stretch;
+				justify-content: center;
+				align-items: stretch;
+				transition: opacity 0.3s ease-out, filter 0.3s ease-out, transform 0.5s ease-out;
+				transform-origin: center top;
+				will-change: transform, opacity, filter;
+				min-height: 85vh;
+			}
+			
+			#Hero .Wrapper {
+				position: relative;
+				z-index: 1;
+				gap: 16px;
+				align-items: center;
+			}
+			
+			#Hero .Wrapper .Status {
+				display: inline-flex;
+				flex-direction: row;
+				flex-wrap: nowrap;
+				align-content: center;
+				justify-content: flex-start;
+				align-items: center;
+				gap: 4px;
+				background: var(--System-GradientBG);
+				padding: 8px 8px;
+				border-radius: 100px;
+				border: 2px solid var(--System-ColorSep);
+				margin-bottom: 32px;
+			}
+			
+			#Hero .Wrapper .Status i {
+				position: relative;
+				width: 16px;
+				height: 16px;
+				border-radius: 32px;
+				color: var(--System-ColorGreen);
+				background: var(--System-ColorGreen);
+				animation: Pulse 2s infinite;
+			}
+			
+			#Hero .Wrapper .Status i:after {
+				content: "";
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				background: currentColor;
+				opacity: 1;
+				border-radius: 50%;
+				top: 0;
+				left: 0;
+				animation: PulseShade 2s infinite;
+			}
+			
+			#Hero .Wrapper .Status .Date {
+				display: inline-flex;
+				flex-direction: row;
+				flex-wrap: nowrap;
+				align-content: center;
+				justify-content: flex-start;
+				align-items: center;
+				align-items: center;
+				gap: 6px;
+				padding: 0 8px;
+				font-size: 1rem;
+				line-height: 1rem;
+				font-variation-settings: "wght" 100, "dots" 4;
+			}
+			
+			#Hero .Wrapper .Status .Date span {
+				font-size: 0.85rem;
+				line-height: 1rem;
+			}
+			#Hero .Wrapper .Status .Date span,
+			#Hero .Wrapper .Status .Date strong {
+				position: relative;
+				top: 2px;
+			}
+			
+			.CTA {
+				display: flex;
+				flex-direction: column;
+				flex-wrap: nowrap;
+				align-content: center;
+				justify-content: flex-start;
+				align-items: center;
+				gap: 10px;
+				margin-top: 24px;
+			}
+			.CTA .Reminder {
+				color: var(--System-ColorText2);
+				font-size: 0.75rem;
+				display: block;
+				max-width: 384px;
+				margin: 0 auto;
+				text-align: center;
+			
+			}
+			.CTA .GetInTouch {
+				background: var(--System-GradientBG);
+				border-radius: 100px;
+				border: 2px solid var(--System-ColorSep);
+				display: flex;
+				flex-direction: row;
+				flex-wrap: nowrap;
+				align-content: center;
+				justify-content: center;
+				align-items: center;
+				gap: 2px;
+				border: 2px solid var(--System-ColorSep);
+				border-color: var(--System-ColorDark);
+				box-shadow: 0 0 0 4px rgb(0 0 0 / 32%);
+				transition: all 0.5s ease;
+			}
+			.CTA .GetInTouch span {
+				color: var(--System-ColorLight);
+			}
+			.CTA .GetInTouch {
+				position: relative;
+				overflow: hidden;
+				transition: all 0.5s ease;
+				transition: all 0.5s ease;
+				background: linear-gradient(to bottom, rgb(58 58 64) 50%, var(--System-ColorDark) 100%);
+			}
+			
+			.CTA .GetInTouch::before {
+				content: "";
+				position: absolute;
+				top: 0; left: 0;
+				width: 100%; height: 100%;
+				background: linear-gradient(to top, rgb(58 58 64) 50%, var(--System-ColorDark) 100%);
+				opacity: 0;
+				transition: opacity 0.5s ease;
+				z-index: 0;
+			}
+			
+			.CTA .GetInTouch:hover::before,
+			.CTA .GetInTouch:focus::before {
+				opacity: 1;
+			}
+			
+			.CTA .GetInTouch > * {
+				position: relative;
+				z-index: 1;
+			}
+			.CTA .GetInTouch img {
+				-webkit-filter: grayscale(1) invert(1);
+				filter: grayscale(1) invert(1);
+				padding: 4px;
+			}
+			.CTA .WhatsApp {
+				background: var(--System-GradientBG);
+				border-radius: 100px;
+				border: 2px solid var(--System-ColorSep);
+				display: flex;
+				flex-direction: row;
+				flex-wrap: nowrap;
+				align-content: center;
+				justify-content: center;
+				align-items: center;
+				gap: 2px;
+				border: 2px solid var(--System-ColorSep);
+				border-color: rgb(15 157 79);
+				box-shadow: 0 0 0 4px rgb(15 157 79 / 60%);
+				transition: all 0.5s ease;
+			}
+			.CTA .WhatsApp span {
+				color: var(--System-ColorLight);
+			}
+			.CTA .WhatsApp {
+				position: relative;
+				overflow: hidden;
+				transition: all 0.5s ease;
+				background: linear-gradient(to bottom, rgb(45 202 116) 50%, rgb(12 152 76) 100%);
+			}
+			
+			.CTA .WhatsApp::before {
+				content: "";
+				position: absolute;
+				top: 0; left: 0;
+				width: 100%; height: 100%;
+				background: linear-gradient(to top, rgb(45 202 116) 50%, rgb(12 152 76) 100%);
+				opacity: 0;
+				transition: opacity 0.5s ease;
+				z-index: 0;
+			}
+			
+			.CTA .WhatsApp:hover::before,
+			.CTA .WhatsApp:focus::before {
+				opacity: 1;
+			}
+			
+			.CTA .WhatsApp > * {
+				position: relative;
+				z-index: 1;
+			}
+			.CTA a img {
+				max-width: 32px;
+				width: 100%;
+			}
+			.CTA a span {
+				font-weight: bold;
+				font-variation-settings: "wght" 600, "dots" 4;
+				font-size: 0.85rem;
+				line-height: 1rem;
+				padding: 8px 8px 4px 16px;
+				color: var(--System-ColorText);
+			}
+			.CTA .EMail p {
+				font-weight: bold;
+				font-variation-settings: "wght" 600, "dots" 4;
+				font-size: 1rem;
+				line-height: 1rem;
+				padding: 6px 0px 0px;
+				opacity: 0.32;
+				left: -5px;
+				position: relative;
+				color: var(--System-ColorText);
+			}
+			.CTA .EMail {
+				display: flex;
+				flex-direction: row;
+				flex-wrap: nowrap;
+				align-content: center;
+				justify-content: center;
+				align-items: center;
+				gap: 2px;
+				transition: all 0.5s ease;
+			}
+			.CTA .EMail .SendIcon {
+				-webkit-filter: var(--System-Lighting);
+				filter: var(--System-Lighting);
+				transform: rotate(45deg);
+				transition: transform 0.5s ease;
+				max-width: 22px;
+				opacity: 0.32;
+				top: 3px;
+				position: relative;
+			}
+			.CTA .EMail .EmailIcon {
+				-webkit-filter: var(--System-Lighting);
+				filter: var(--System-Lighting);
+				max-width: 16px;
+				opacity: 0.32;
+				
+			}
+			.CTA .EMail span {
+				padding: 8px 0 0px;
+			}
+			.CTA .EMail:hover span,
+			.CTA .EMail:focus span {
+				text-decoration: underline;
+				color: var(--System-ColorText);
+			}
+			.CTA .EMail:hover .SendIcon,
+			.CTA .EMail:focus .SendIcon {
+				transform: rotate(24deg) translate(8px, -8px) scale(1.16);
+				-webkit-filter: invert(29%) sepia(94%) saturate(3007%) hue-rotate(202deg) brightness(105%) contrast(103%);
+				filter: invert(29%) sepia(94%) saturate(3007%) hue-rotate(202deg) brightness(105%) contrast(103%);
+				opacity: 1;
+			}
+			
+			#Hero .Wrapper .Title {
+				display: flex;
+				flex-direction: row;
+				flex-wrap: wrap;
+				align-content: center;
+				justify-content: center;
+				gap: 16px;
+				align-items: center;
+			}
+			
+			#Hero .Wrapper .Title .Text {
+				display: inline;
+			}
+			
+			#Hero .Wrapper .Title .Text .DualTone {
+				font-size: 4rem;
+				font-variation-settings: "wght" 950, "dots" 4;
+				display: inline-block;
+			}
+			
+			#Hero .Wrapper .Title .Text p {
+				font-size: 2.75rem;
+				opacity: 0.32;
+				font-variation-settings: "wght" 200, "dots" 4;
+				display: inline;
+			}
+			
+			@media only screen and (max-width: 768px) {
+				#Hero .Wrapper .Title .Text p {
+					font-size: 2.25rem;
+					line-height: 2.25rem;
+				}
+			}
+			
+			@media only screen and (max-width: 568px) {
+				#Hero .Wrapper .Title .Text p {
+					font-size: 1.5rem;
+					line-height: 1.5rem;
+				}
+			}
+			
+			#Hero .Wrapper .Title .Text h1,
+			#Hero .Wrapper .Title .Text h2 {
+				font-size: 3.25rem;
+				line-height: 3.25rem;
+				font-variation-settings: "wght" 950, "dots" 4;
+				display: inline;
+			}
+			
+			@media only screen and (max-width: 768px) {
+			
+				#Hero .Wrapper .Title .Text h1,
+				#Hero .Wrapper .Title .Text h2 {
+					font-size: 3rem;
+					line-height: 3rem;
+				}
+			}
+			
+			@media only screen and (max-width: 568px) {
+			
+				#Hero .Wrapper .Title .Text h1,
+				#Hero .Wrapper .Title .Text h2 {
+					font-size: 2.25rem;
+					line-height: 2.25rem;
+				}
+			}
+			@media only screen and (max-width: 428px) {
+				#Hero .Wrapper .Title .Text h1,
+				#Hero .Wrapper .Title .Text h2 {
+					font-size: 2rem;
+					line-height: 2rem;
+				}
+			
+				#Hero .Wrapper .Title.Marketer .Text h1,
+				#Hero .Wrapper .Title.Marketer .Text h2 {
+					font-size: 1.75rem;
+					line-height: 2rem;
+				}
+			}
+			@media only screen and (max-width: 768px) {
+				#Hero .Wrapper .Title.Name {
+					flex-direction: column-reverse;
+				} 
+				#Hero .Wrapper .Title.Name .Objects {
+					display: block;
+				}
+			}
+			#Hero .Wrapper .Title .Objects {
+				top: -10px;
+				position: relative;
+			}
+			#Hero .Wrapper .Title .Objects .Icons {
+				display: flex;
+				flex-direction: row;
+				flex-wrap: wrap;
+				align-content: center;
+				justify-content: center;
+				align-items: center;
+				gap: 8px;
+				padding: 8px;
+			}
+			
+			#Hero .Wrapper .Title .Objects .Icons .Icon {
+				width: 80px;
+				height: 80px;
+				border-radius: 16px;
+				border: 1px solid var(--System-ColorSep);
+				background: var(--System-ColorBG2);
+				text-align: center;
+				font-size: 44px;
+				line-height: 64px;
+				margin: -8px;
+				transition: transform 0.5s ease;
+				display: flex;
+				flex-direction: row;
+				flex-wrap: nowrap;
+				align-content: center;
+				justify-content: center;
+				align-items: center;
+			}
+			#Hero .Wrapper .Title .Objects .Icons .Icon img {
+				width: 64px;
+				height: 64px;
+				margin: auto;
+				transition: transform 0.5s ease;
+			}
+			
+			@media only screen and (max-width: 428px) {
+				#Hero .Wrapper .Title .Objects .Icons .Icon {
+					width: 64px;
+					height: 64px;
+				}
+				#Hero .Wrapper .Title .Objects .Icons .Icon img {
+					width: 48px;
+					height: 48px;
+				}
+			}
+			
+			
+			#Hero .Wrapper .Title .Objects .Icons .Icon:first-child {
+				transform: rotate(0deg) !important;
+				z-index: 1;
+				box-shadow: 0 0 24px -6px var(--System-ColorShadow);
+				border-color: var(--System-ColorBG);
+			}
+			#Hero .Wrapper .Title .Objects .Icons .Icon:first-child img {
+				transform: scale(1.5);
+				transform-origin: bottom !important;
+				border-radius: 0 0 26px 27px !important;
+				position: relative;
+				bottom: -5px;
+			}
+			#Hero .Wrapper .Title .Objects .Icons .Icon:nth-child(odd) {
+				transform: rotate(-16deg);
+			}
+			
+			#Hero .Wrapper .Title .Objects .Icons .Icon:nth-child(even) {
+				transform: rotate(8deg);
+			}
+			
+			#Hero .Wrapper .Title .Objects .Icons .Icon:hover,
+			#Hero .Wrapper .Title .Objects .Icons .Icon:focus {
+				transform: rotate(0);
+				z-index: 1;
+				box-shadow: 0 0 24px -6px var(--System-ColorShadow);
+				border-color: var(--System-ColorBG);
+			}
+			#Hero .Wrapper .Title .Objects .Icons .Icon:not(:first-child):hover img,
+			#Hero .Wrapper .Title .Objects .Icons .Icon:not(:first-child):focus img {
+				transform: scale(1.75);
+				transform-origin: center;
+				border-radius: 0 0 32px 32px;
+			}
+			
+			@media only screen and (max-width: 768px) {
+				#Hero .Wrapper .Title .Objects {
+					display: none;
+				}
+			}
+			
+			#Hero .Wrapper .Title.Developer .WebDev {
+				position: relative;
+				overflow: visible;
+				width: 96px;
+				height: 96px;
+			}
+			
+			#Hero .Wrapper .Title.Developer .WebDev .WebCon {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				font-size: 3.5rem;
+				line-height: 64px;
+				font-variation-settings: "wght" 1000, "dots" 4;
+				text-align: center;
+				transform: rotate3d(1, 1, 1, 6deg);
+			}
+			
+			#Hero .Wrapper .Title.Developer .WebDev .WebCon img {
+				width: 96px;
+				height: 96px;
+				object-fit: contain;
+				object-position: center;
+				position: absolute;
+				inset: 0;
+				pointer-events: none;
+				transform: rotate3d(1, 1, 1, -6deg);
+			}
+			
+			#Hero .Wrapper .Title.Developer .WebDev .WebCon.Before img {
+				-webkit-filter: grayscale(1) invert(1);
+				filter: grayscale(1) invert(1);
+			}
+			
+			#Hero .Wrapper .Title.Developer .WebDev .WebCon.After {
+				width: 64px;
+				overflow: hidden;
+			}
+			
+			#Hero .Wrapper .Title.Developer .WebDev .Magic {
+				position: absolute;
+				top: 3.6px;
+				left: 64px;
+				width: 7px;
+				height: 85px;
+				background: var(--System-ColorIndigo);
+				border: 2px solid var(--System-ColorSep);
+				box-shadow: 0 0px 4px 0px var(--System-ColorShadow);
+				border-radius: 5px;
+				cursor: ew-resize;
+				transform: translateX(-50%);
+				transform: rotate3d(1, 1, 1, 6deg);
+			}
+			
+			#Hero .Wrapper .Title.Designer .Text h2 {
+				-webkit-text-fill-color: transparent;
+				background-clip: text;
+				color: transparent;
+				background-size: 200% 100%;
+				animation: DesignerEffect 5s linear infinite;
+				transition: opacity 0.5s ease;
+			}
+			
+			#Hero .Wrapper .Title.Designer .Text h2.ColorALL {
+				background-image: linear-gradient(to left, var(--System-ColorRed), var(--System-ColorOrange), var(--System-ColorYellow), var(--System-ColorGreen), var(--System-ColorMint), var(--System-ColorTeal), var(--System-ColorCyan), var(--System-ColorBlue), var(--System-ColorIndigo), var(--System-ColorPurple), var(--System-ColorPink), var(--System-ColorRed));
+				-webkit-background-clip: text;
+			}
+			
+			#Hero .Wrapper .Title.Designer .Text h2.ColorALL span {
+				background: var(--System-GradientText2);
+				-webkit-background-clip: text;
+			}
+			
+			#Hero .Wrapper .Title.Designer .Text h2.ColorA {
+				background-image: linear-gradient(to right, var(--System-ColorYellow), var(--System-ColorGreen), var(--System-ColorYellow));
+				-webkit-background-clip: text;
+			}
+			
+			#Hero .Wrapper .Title.Designer .Text h2.ColorA span {
+				background: var(--System-GradientText2);
+				-webkit-background-clip: text;
+			}
+			
+			#Hero .Wrapper .Title.Designer .Text h2.ColorB {
+				background-image: linear-gradient(to left, var(--System-ColorMint), var(--System-ColorBlue), var(--System-ColorMint));
+				-webkit-background-clip: text;
+			}
+			
+			#Hero .Wrapper .Title.Designer .Text h2.ColorB span {
+				background: var(--System-GradientText2);
+				-webkit-background-clip: text;
+			}
+			
+			#Hero .Wrapper .Title.Designer .Text h2.ColorC {
+				background-image: linear-gradient(to left, var(--System-ColorPink), var(--System-ColorPink), var(--System-ColorOrange), var(--System-ColorPink));
+				-webkit-background-clip: text;
+			}
+			
+			#Hero .Wrapper .Title.Designer .Text h2.ColorC span {
+				background: var(--System-GradientText2);
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				box-decoration-break: clone;
+			}
+			
+			#Hero .Wrapper .Title.Designer .Objects {
+				width: 128px;
+				height: 64px;
+			}
+			
+			#Hero .Wrapper .Title.Designer .Objects .ColorSets {
+				position: relative;
+			}
+			
+			@media only screen and (max-width: 768px) {
+				#Hero .Wrapper .Title.Designer .Objects .ColorSets {
+					top: 10px;
+				}
+			}
+			
+			#Hero .Wrapper .Title.Designer .Objects .ColorSets li {
+				position: absolute;
+				inset: 0;
+				width: 64px;
+				height: 64px;
+				border-radius: 16px;
+				border: 1px solid var(--System-ColorSep);
+				cursor: var(--System-ColorPicker);
+				transform-origin: bottom right;
+				background-image: linear-gradient(to bottom, var(--System-ColorRed), var(--System-ColorOrange), var(--System-ColorYellow), var(--System-ColorGreen), var(--System-ColorMint), var(--System-ColorTeal), var(--System-ColorCyan), var(--System-ColorBlue), var(--System-ColorIndigo), var(--System-ColorPurple), var(--System-ColorPink), var(--System-ColorRed));
+				transition: box-shadow 0.5s ease, transform 0.5s ease;
+			}
+			
+			#Hero .Wrapper .Title.Designer .Objects .ColorSets li.ColorALL {
+				background-image: linear-gradient(45deg, var(--System-ColorRed) 15%, var(--System-ColorYellow) 30%, var(--System-ColorGreen) 50%, var(--System-ColorBlue) 70%, var(--System-ColorPurple) 100%);
+			}
+			
+			#Hero .Wrapper .Title.Designer .Objects .ColorSets li.ColorA {
+				background-image: linear-gradient(45deg, var(--System-ColorYellow), var(--System-ColorGreen));
+			}
+			
+			#Hero .Wrapper .Title.Designer .Objects .ColorSets li.ColorB {
+				background-image: linear-gradient(45deg, var(--System-ColorMint), var(--System-ColorBlue));
+			}
+			
+			#Hero .Wrapper .Title.Designer .Objects .ColorSets li.ColorC {
+				background-image: linear-gradient(45deg, var(--System-ColorOrange), var(--System-ColorPink));
+			}
+			
+			#Hero .Wrapper .Title.Designer .Objects .ColorSets li.Selected,
+			#Hero .Wrapper .Title.Designer .Objects .ColorSets li:hover {
+				box-shadow: 0 0px 10px 1px var(--System-ColorShadow);
+				border-color: var(--System-ColorBlue);
+			}
+			
+			#Hero .Wrapper .Title.Designer .Objects .ColorSets li.Selected {
+				box-shadow: 0px 0px 0px 2px rgba(10, 132, 255, 0.65), 0 0px 10px 1px var(--System-ColorShadow);
+			}
+			
+			#Hero .Wrapper .Title.Designer .Objects .ColorSets li:not(:first-child) {
+				transform: rotate(calc(var(--Palette) * 20deg));
+			}
+			
+			#Hero .Wrapper .Title.Designer .Objects .ColorSets:hover li:not(:first-child) {
+				transform: rotate(calc(var(--Palette) * 30deg));
+			}
+			
+			#Hero .Wrapper .Title.Marketer .Objects .LaunchStage {
+				width: 96px;
+				height: 96px;
+				border: 4px solid var(--System-ColorSep);
+				border-radius: 100px;
+				background: linear-gradient(to top, var(--System-ColorText2) 8px, var(--System-ColorText3) 16px, var(--System-ColorText2) 16px, var(--System-ColorText3) 32px, var(--System-ColorText4) 32px, var(--System-ColorText3) 64px, var(--System-ColorText4) 64px, var(--System-ColorText3) 80px, var(--System-ColorText4) 80px, var(--System-ColorText3));
+				position: relative;
+				overflow: hidden;
+			}
+			
+			#Hero .Wrapper .Title.Marketer .Objects .LaunchStage .Rocket {
+				position: absolute;
+				inset: 0;
+				display: flex;
+				flex-direction: row;
+				flex-wrap: nowrap;
+				align-content: center;
+				justify-content: center;
+				align-items: center;
+				-webkit-animation: Rocket 0.2s infinite;
+				animation: Rocket 0.2s infinite;
+			}
+			
+			#Hero .Wrapper .Title.Marketer .Objects .LaunchStage .Rocket img {
+				max-width: 48px;
+				transform: rotate(270deg);
+				transition: transform 0.5s ease;
+			}
+			
+			#Hero .Wrapper .Title.Marketer .Objects .LaunchStage .Rocket img:hover,
+			#Hero .Wrapper .Title.Marketer .Objects .LaunchStage .Rocket img:focus {
+				transform: translate(32px, 32px) scale(2.5) rotate(270deg);
+				transform-origin: center center;
+			}
+			
+			#Hero .Wrapper .Title.Marketer .Objects .LaunchStage .Stars {
+				position: relative;
+				width: 100%;
+				height: 100%;
+			}
+			
+			#Hero .Wrapper .Title.Marketer .Objects .LaunchStage .Stars .Star {
+				height: 4px;
+				width: 4px;
+				position: absolute;
+				background: white;
+				border-radius: 50%;
+			}
+			
+			#Hero .Wrapper .Title.Marketer .Objects .LaunchStage .Stars .Star:after {
+				height: 60px;
+				width: 1px;
+				content: "";
+				position: absolute;
+				left: 50%;
+				top: 0;
+				transform: translate(-50%, -100%);
+				background: linear-gradient(to bottom, transparent, white);
+			}
+			
+			#Hero .Wrapper .Title.Marketer .Objects .LaunchStage .Stars .Star.Star-1 {
+				-webkit-animation: Star-1 linear 2.065s infinite -3.82s;
+				animation: Star-1 linear 2.065s infinite -3.82s;
+			}
+			
+			#Hero .Wrapper .Title.Marketer .Objects .LaunchStage .Stars .Star.Star-2 {
+				-webkit-animation: Star-2 linear 3.05s infinite -0.325s;
+				animation: Star-2 linear 3.05s infinite -0.325s;
+			}
+			
+			#Hero .Wrapper .Title.Marketer .Objects .LaunchStage .Stars .Star.Star-3 {
+				-webkit-animation: Star-3 linear 2.11s infinite -0.85s;
+				animation: Star-3 linear 2.11s infinite -0.85s;
+			}
+			
+			#Hero .Wrapper .Title.Marketer .Objects .LaunchStage .Stars .Star.Star-4 {
+				-webkit-animation: Star-4 linear 2.205s infinite -1.86s;
+				animation: Star-4 linear 2.205s infinite -1.86s;
+			}
+			
+			#Hero .Wrapper .Title.Marketer .Objects .LaunchStage .Stars .Star.Star-5 {
+				-webkit-animation: Star-5 linear 4.52s infinite -0.73s;
+				animation: Star-5 linear 4.52s infinite -0.73s;
+			}
+			
+			#Hero .Wrapper .Title.Marketer .Objects .LaunchStage .Stars .Star.Star-6 {
+				-webkit-animation: Star-6 linear 5.05s infinite -3.215s;
+				animation: Star-6 linear 5.05s infinite -3.215s;
+			}
+			
+			#Hero .Wrapper .Title.Marketer .Objects .LaunchStage .Stars .Star.Star-7 {
+				-webkit-animation: Star-7 linear 5.605s infinite -0.83s;
+				animation: Star-7 linear 5.605s infinite -0.83s;
+			}
+			
+			#Hero .Wrapper .Title.Marketer .Objects .LaunchStage .Stars .Star.Star-8 {
+				-webkit-animation: Star-8 linear 5.435s infinite -0.555s;
+				animation: Star-8 linear 5.435s infinite -0.555s;
+			}
+			
+			#Hero .Wrapper .Title.Marketer .Objects .LaunchStage .Stars .Star.Star-9 {
+				-webkit-animation: Star-9 linear 6.97s infinite -3.59s;
+				animation: Star-9 linear 6.97s infinite -3.59s;
+			}
+			
+			#Hero .Wrapper .Title.Marketer .Objects .LaunchStage .Stars .Star.Star-10 {
+				-webkit-animation: Star-10 linear 3.465s infinite -0.015s;
+				animation: Star-10 linear 3.465s infinite -0.015s;
+			}
+			
+			#Hero .ScrollDown {
+				position: relative;
+				top: 0px;
+				max-width: 64px;
+				margin: 0 auto;
+				display: block;
+				-webkit-filter: var(--System-Darking);
+				filter: var(--System-Darking);
+				opacity: 0.32;
+			}
+			
+			@keyframes Pulse {
+				0% {
+					opacity: 0.5;
+				}
+			
+				70% {
+					opacity: 1;
+				}
+			
+				100% {
+					opacity: 0.5;
+				}
+			}
+			
+			@keyframes PulseShade {
+				0% {
+					opacity: 1;
+				}
+			
+				70% {
+					opacity: 0;
+					transform: scale(2);
+				}
+			
+				100% {
+					opacity: 0.25;
+				}
+			}
+			
+			@keyframes DesignerEffect {
+				0% {
+					background-position: 0% 0%;
+				}
+			
+				100% {
+					background-position: -200% 0%;
+				}
+			}
+			
+			@keyframes ColorSets {
+				0% {
+					background-position: 0% 0%;
+				}
+			
+				100% {
+					background-position: -200% 0%;
+				}
+			}
+			
+			@keyframes Rocket {
+				0% {
+					transform: scale(1) translate(0, 0) rotate(0);
+				}
+			
+				50% {
+					transform: scale(1) translate(1px, -1px) rotate(0);
+				}
+			
+				100% {
+					transform: scale(1) translate(0, 0) rotate(0);
+				}
+			}
+			
+			@-webkit-keyframes Star-1 {
+				0% {
+					transform: translate(-100%, 4px) scale(0.35) rotate(-45deg);
+					opacity: 0.35;
+				}
+			
+				100% {
+					transform: translate(436px, 440px) scale(0.35) rotate(-45deg);
+					opacity: 0.35;
+				}
+			}
+			
+			@keyframes Star-1 {
+				0% {
+					transform: translate(-100%, 4px) scale(0.35) rotate(-45deg);
+					opacity: 0.35;
+				}
+			
+				100% {
+					transform: translate(436px, 440px) scale(0.35) rotate(-45deg);
+					opacity: 0.35;
+				}
+			}
+			
+			@-webkit-keyframes Star-2 {
+				0% {
+					transform: translate(8px, -100%) scale(0.72) rotate(-45deg);
+					opacity: 0.72;
+				}
+			
+				100% {
+					transform: translate(440px, 432px) scale(0.72) rotate(-45deg);
+					opacity: 0.72;
+				}
+			}
+			
+			@keyframes Star-2 {
+				0% {
+					transform: translate(8px, -100%) scale(0.72) rotate(-45deg);
+					opacity: 0.72;
+				}
+			
+				100% {
+					transform: translate(440px, 432px) scale(0.72) rotate(-45deg);
+					opacity: 0.72;
+				}
+			}
+			
+			@-webkit-keyframes Star-3 {
+				0% {
+					transform: translate(12px, -100%) scale(0.89) rotate(-45deg);
+					opacity: 0.89;
+				}
+			
+				100% {
+					transform: translate(440px, 428px) scale(0.89) rotate(-45deg);
+					opacity: 0.89;
+				}
+			}
+			
+			@keyframes Star-3 {
+				0% {
+					transform: translate(12px, -100%) scale(0.89) rotate(-45deg);
+					opacity: 0.89;
+				}
+			
+				100% {
+					transform: translate(440px, 428px) scale(0.89) rotate(-45deg);
+					opacity: 0.89;
+				}
+			}
+			
+			@-webkit-keyframes Star-4 {
+				0% {
+					transform: translate(-100%, 16px) scale(0.35) rotate(-45deg);
+					opacity: 0.35;
+				}
+			
+				100% {
+					transform: translate(424px, 440px) scale(0.35) rotate(-45deg);
+					opacity: 0.35;
+				}
+			}
+			
+			@keyframes Star-4 {
+				0% {
+					transform: translate(-100%, 16px) scale(0.35) rotate(-45deg);
+					opacity: 0.35;
+				}
+			
+				100% {
+					transform: translate(424px, 440px) scale(0.35) rotate(-45deg);
+					opacity: 0.35;
+				}
+			}
+			
+			@-webkit-keyframes Star-5 {
+				0% {
+					transform: translate(20px, -100%) scale(0.54) rotate(-45deg);
+					opacity: 0.54;
+				}
+			
+				100% {
+					transform: translate(440px, 420px) scale(0.54) rotate(-45deg);
+					opacity: 0.54;
+				}
+			}
+			
+			@keyframes Star-5 {
+				0% {
+					transform: translate(20px, -100%) scale(0.54) rotate(-45deg);
+					opacity: 0.54;
+				}
+			
+				100% {
+					transform: translate(440px, 420px) scale(0.54) rotate(-45deg);
+					opacity: 0.54;
+				}
+			}
+			
+			@-webkit-keyframes Star-6 {
+				0% {
+					transform: translate(24px, -100%) scale(1.28) rotate(-45deg);
+					opacity: 1.28;
+				}
+			
+				100% {
+					transform: translate(440px, 416px) scale(1.28) rotate(-45deg);
+					opacity: 1.28;
+				}
+			}
+			
+			@keyframes Star-6 {
+				0% {
+					transform: translate(24px, -100%) scale(1.28) rotate(-45deg);
+					opacity: 1.28;
+				}
+			
+				100% {
+					transform: translate(440px, 416px) scale(1.28) rotate(-45deg);
+					opacity: 1.28;
+				}
+			}
+			
+			@-webkit-keyframes Star-7 {
+				0% {
+					transform: translate(28px, -100%) scale(0.07) rotate(-45deg);
+					opacity: 0.07;
+				}
+			
+				100% {
+					transform: translate(440px, 412px) scale(0.07) rotate(-45deg);
+					opacity: 0.07;
+				}
+			}
+			
+			@keyframes Star-7 {
+				0% {
+					transform: translate(28px, -100%) scale(0.07) rotate(-45deg);
+					opacity: 0.07;
+				}
+			
+				100% {
+					transform: translate(440px, 412px) scale(0.07) rotate(-45deg);
+					opacity: 0.07;
+				}
+			}
+			
+			@-webkit-keyframes Star-8 {
+				0% {
+					transform: translate(32px, -100%) scale(0.56) rotate(-45deg);
+					opacity: 0.56;
+				}
+			
+				100% {
+					transform: translate(440px, 408px) scale(0.56) rotate(-45deg);
+					opacity: 0.56;
+				}
+			}
+			
+			@keyframes Star-8 {
+				0% {
+					transform: translate(32px, -100%) scale(0.56) rotate(-45deg);
+					opacity: 0.56;
+				}
+			
+				100% {
+					transform: translate(440px, 408px) scale(0.56) rotate(-45deg);
+					opacity: 0.56;
+				}
+			}
+			
+			@-webkit-keyframes Star-9 {
+				0% {
+					transform: translate(36px, -100%) scale(0.76) rotate(-45deg);
+					opacity: 0.76;
+				}
+			
+				100% {
+					transform: translate(440px, 404px) scale(0.76) rotate(-45deg);
+					opacity: 0.76;
+				}
+			}
+			
+			@keyframes Star-9 {
+				0% {
+					transform: translate(36px, -100%) scale(0.76) rotate(-45deg);
+					opacity: 0.76;
+				}
+			
+				100% {
+					transform: translate(440px, 404px) scale(0.76) rotate(-45deg);
+					opacity: 0.76;
+				}
+			}
+			
+			@-webkit-keyframes Star-10 {
+				0% {
+					transform: translate(-100%, 40px) scale(0.12) rotate(-45deg);
+					opacity: 0.12;
+				}
+			
+				100% {
+					transform: translate(400px, 440px) scale(0.12) rotate(-45deg);
+					opacity: 0.12;
+				}
+			}
+			
+			@keyframes Star-10 {
+				0% {
+					transform: translate(-100%, 40px) scale(0.12) rotate(-45deg);
+					opacity: 0.12;
+				}
+			
+				100% {
+					transform: translate(400px, 440px) scale(0.12) rotate(-45deg);
+					opacity: 0.12;
+				}
+			}
+		</style>
 
 	</head>
 
@@ -1017,7 +2061,7 @@
 			</div>
 		</section>
 
-		<script src="assets/js/main.js?v2.27" defer></script>
+		<script src="assets/js/main.js?v2.28" defer></script>
 		<script src="assets/js/matter.min.js"></script>		
 
 	</body>
