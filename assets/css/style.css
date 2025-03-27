@@ -2476,7 +2476,7 @@ html[lights=off] #Works .Wrapper .Bento .Benex:not(:first-child) .Wrapper:after 
 
 #Stats .Bento .Benex .Wrapper .Content .Desc {
 	font-size: 2rem;
-	line-height: 2rem;
+    line-height: 2.75rem;
 	font-variation-settings: "wght" 100, "dots" 4;
 	text-align: center;
 	color: var(--System-ColorText2);
