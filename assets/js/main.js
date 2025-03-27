@@ -8,6 +8,36 @@ document.addEventListener("DOMContentLoaded", async function () {
 		document.body.classList.add("Loaded");
 	}, 1500);
 
+
+	/*-----------------------------------------------------------------------------*/
+	/* ScrollDown Animation -------------------------------------------------------*/
+	/*-----------------------------------------------------------------------------*/
+	const totalFrames = 60;
+	let current = 1;
+	const fps = 30;
+	const frameDuration = 1000 / fps;
+	const scrollElement = document.getElementById("ScrollDown");
+	const preloadFrames = () => {
+	  for (let i = 1; i <= totalFrames; i++) {
+		const frameNum = i.toString().padStart(2, '0');
+		const img = new Image();
+		img.src = `assets/img/hero/ScrollDown/ScrollDown-${frameNum}.svg`;
+	  }
+	};
+	preloadFrames();
+	let lastTime = performance.now();
+	const animate = (now) => {
+	  if (now - lastTime >= frameDuration) {
+		current = (current % totalFrames) + 1;
+		const frameNum = current.toString().padStart(2, '0');
+		scrollElement.src = `assets/img/hero/ScrollDown/ScrollDown-${frameNum}.svg`;
+		lastTime = now;
+	  }
+	  requestAnimationFrame(animate);
+	};
+	requestAnimationFrame(animate);
+
+
 	/*-----------------------------------------------------------------------------*/
 	/* MultiLanguage Engine -------------------------------------------------------*/
 	/*-----------------------------------------------------------------------------*/
