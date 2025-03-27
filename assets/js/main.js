@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 	/*-----------------------------------------------------------------------------*/
 	/* PreLoader ------------------------------------------------------------------*/
 	/*-----------------------------------------------------------------------------*/
-	const MIN_PRELOAD_TIME = 500;
+	const MIN_PRELOAD_TIME = 250;
 	const start = performance.now();
 	window.addEventListener("load", () => {
 		const now = performance.now();
