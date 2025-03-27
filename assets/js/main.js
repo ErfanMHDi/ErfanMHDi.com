@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 	/*-----------------------------------------------------------------------------*/
 	setTimeout(function () {
 		document.body.classList.add("Loaded");
-	}, 0);
+	}, 1500);
 
 
 	/*-----------------------------------------------------------------------------*/
