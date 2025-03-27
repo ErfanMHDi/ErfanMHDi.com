@@ -679,7 +679,7 @@ section .Wrapper .Bento .Benex .Wrapper .Header {
 	}
 }
 section .Wrapper .Bento .Benex .Wrapper .Header .Icon {
-	max-width: 72px;
+	max-width: 96px;
 	-webkit-filter: saturate(185%);
 	filter: saturate(185%)
 }
