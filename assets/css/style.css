@@ -385,8 +385,8 @@ a:focus {
 	top: 0;
 	left: 0;
 	overflow: hidden;
-	-webkikt-filter: url(#BlurEffect);
-	filter: url(#BlurEffect);
+	/* -webkikt-filter: url(#BlurEffect);
+	filter: url(#BlurEffect); */
 }
 
 .Background .Wrapper span {
@@ -506,8 +506,8 @@ a:focus {
 	width: 100vw;
 	height: 100vh;
 	content: "";
-	-webkit-backdrop-filter: saturate(185%) blur(185px);
-	backdrop-filter: saturate(185%) blur(185px);
+	/* -webkit-backdrop-filter: saturate(185%) blur(185px);
+	backdrop-filter: saturate(185%) blur(185px); */
 	z-index: 1;
 }
 
