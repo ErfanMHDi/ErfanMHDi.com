@@ -101,29 +101,41 @@ document.addEventListener("DOMContentLoaded", async function () {
 	/*-----------------------------------------------------------------------------*/
 	/* Light Switch ---------------------------------------------------------------*/
 	/*-----------------------------------------------------------------------------*/
-    const themeToggleInputs = document.querySelectorAll(".LightSwitch input");
-    function setState(state) {
-        const currentTheme = document.documentElement.getAttribute("lights");
-        if (state === currentTheme) return; 
+	const themeToggleInputs = document.querySelectorAll(".LightSwitch input");
+	function applyTheme(state) {
+		if (state === "auto") {
+			const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+			document.documentElement.setAttribute("lights", systemPrefersDark ? "off" : "on");
+		} else {
+			document.documentElement.setAttribute("lights", state);
+		}
+	}
+	function setState(state) {
+		const currentTheme = document.documentElement.getAttribute("lights");
 
-        if (state === "auto") {
-            const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-            document.documentElement.setAttribute("lights", systemPrefersDark ? "off" : "on");
-        } else {
-            document.documentElement.setAttribute("lights", state);
-        }
+		if (state === "auto") {
+			applyTheme("auto");
+		} else if (state !== currentTheme) {
+			applyTheme(state);
+		}
 
-        localStorage.setItem("lights", state);
-    }
-    setState(localStorage.getItem("lights") || "auto");
-    themeToggleInputs.forEach((input) => {
-        input.addEventListener("change", function () {
-            if (this.checked) {
-                setState(this.value);
-            }
-        });
-    });
-
+		localStorage.setItem("lights", state);
+	}
+	window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
+		const stored = localStorage.getItem("lights");
+		if (stored === "auto") {
+			applyTheme("auto");
+		}
+	});
+	setState(localStorage.getItem("lights") || "auto");
+	themeToggleInputs.forEach((input) => {
+		input.addEventListener("change", function () {
+			if (this.checked) {
+				setState(this.value);
+			}
+		});
+	});
+	
 
 	/*-----------------------------------------------------------------------------*/
 	/* SplineViewer WhiteLabel ----------------------------------------------------*/
